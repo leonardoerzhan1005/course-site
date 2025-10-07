@@ -33,7 +33,7 @@
                                 <li>
                                     <span><img src="{{ asset($course->instructor->image) }}" alt="user"
                                             class="img-fluid"></span>
-                                    By {{ $course->instructor->name }}
+                                    {{ __('By') }} {{ $course->instructor->name }}
                                 </li>
                                 <li>
                                     <span><img src="{{ asset('frontend/assets/images/globe_icon_blue.png') }}"
@@ -43,7 +43,7 @@
                                 <li>
                                     <span><img src="{{ asset('frontend/assets/images/calendar_blue.png') }}" alt="Calendar"
                                             class="img-fluid"></span>
-                                    Last updated {{ date('d/M/Y', strtotime($course->updated_at)) }}
+                                    {{ __('Last updated') }} {{ date('d/M/Y', strtotime($course->updated_at)) }}
                                 </li>
                             </ul>
                         </div>
@@ -60,6 +60,9 @@
     <!--===========================
                 COURSES DETAILS START
             ============================-->
+
+  <!--          
+
     <section class="wsus__courses_details pb_120 xs_pb_100">
         <div class="container">
             <div class="row">
@@ -70,22 +73,22 @@
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
-                                    aria-selected="true">Overview</button>
+                                    aria-selected="true">{{ __('Overview') }}</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-profile" type="button" role="tab"
-                                    aria-controls="pills-profile" aria-selected="false">Curriculum</button>
+                                    aria-controls="pills-profile" aria-selected="false">{{ __('Curriculum') }}</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
                                     data-bs-target="#pills-contact" type="button" role="tab"
-                                    aria-controls="pills-contact" aria-selected="false">Instructor</button>
+                                    aria-controls="pills-contact" aria-selected="false">{{ __('Instructor') }}</button>
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link" id="pills-disabled-tab2" data-bs-toggle="pill"
                                     data-bs-target="#pills-disabled2" type="button" role="tab"
-                                    aria-controls="pills-disabled2" aria-selected="false">Review</button>
+                                    aria-controls="pills-disabled2" aria-selected="false">{{ __('Review') }}</button>
                             </li>
                         </ul>
 
@@ -93,14 +96,14 @@
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                 aria-labelledby="pills-home-tab" tabindex="0">
                                 <div class="wsus__courses_overview box_area">
-                                    <h3>Course Description</h3>
+                                    <h3>{{ __('Course Description') }}</h3>
                                     <p>{!! $course->translated_description !!}</p>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                                 aria-labelledby="pills-profile-tab" tabindex="0">
                                 <div class="wsus__courses_curriculum box_area">
-                                    <h3>Course Curriculum</h3>
+                                    <h3>{{ __('Course Curriculum') }}</h3>
                                     <div class="accordion" id="accordionExample">
                                         @foreach($course->chapters as $chapter)
                                         <div class="accordion-item">
@@ -138,7 +141,7 @@
                             <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                                 aria-labelledby="pills-contact-tab" tabindex="0">
                                 <div class="wsus__courses_instructor box_area">
-                                    <h3>Instructor Details</h3>
+                                    <h3>{{ __('Instructor Details') }}</h3>
                                     <div class="row align-items-center">
                                         <div class="col-lg-4 col-md-6">
                                             <div class="wsus__courses_instructor_img">
@@ -155,42 +158,24 @@
                                                         $coursesId = $course->instructor->courses()->pluck('id')->toArray();
                                                         $reviewsCount = \App\Models\Review::whereIn('course_id', $coursesId)->count();
                                                     @endphp
-                                                    <li><i class="fas fa-star"></i> <b> {{ $reviewsCount }} Reviews</b></li>
-                                                    <li><strong>4.7 Rating</strong></li>
+                                                    <li><i class="fas fa-star"></i> <b> {{ $reviewsCount }} {{ __('Reviews') }}</b></li>
+                                                    <li><strong>4.7 {{ __('Rating') }}</strong></li>
                                                     <li>
                                                         <span><img src="{{ asset('frontend/assets/images/book_icon.png') }}" alt="book"
                                                                 class="img-fluid"></span>
-                                                        {{ $course->instructor->courses()->count() }} Courses
+                                                        {{ $course->instructor->courses()->count() }} {{ __('Courses') }}
                                                     </li>
                                                     <li>
                                                         <span><img src="{{ asset('frontend/assets/images/user_icon_gray.png') }}" alt="user"
                                                                 class="img-fluid"></span>
-                                                        {{ $course->instructor->students()->count() }} Students
+                                                        {{ $course->instructor->students()->count() }} {{ __('Students') }}
                                                     </li>
                                                 </ul>
                                                
                                                 <p class="description">
                                                     {{ $course->instructor->bio }}
                                                 </p>
-                                                <ul class="link d-flex flex-wrap">
-                                                    @if($course->instructor->facebook)
-                                                    <li><a href="{{ $course->instructor->facebook }}"><i class="fab fa-facebook-f"></i></a></li>
-                                                    @endif
-                                                    @if($course->instructor->x)
-                                                    <li><a href="{{ $course->instructor->x }}"><i class="fab fa-twitter"></i></a></li>
-                                                    @endif
-                                                    @if($course->instructor->linkedin)
-                                                    <li><a href="{{ $course->instructor->linkedin }}"><i class="fab fa-linkedin-in"></i></a></li>
-                                                    @endif
-                                                    @if($course->instructor->website)
-                                                    <li><a href="{{ $course->instructor->website }}"><i class="fas fa-link"></i></a></li>
-                                                    @endif
-                                                    @if($course->instructor->github)
-                                                    <li><a href="{{ $course->instructor->github }}"><i class="fab fa-github"></i></a></li>
-                                                    @endif
-
-
-                                                </ul>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -201,7 +186,7 @@
                             <div class="tab-pane fade" id="pills-disabled2" role="tabpanel"
                                 aria-labelledby="pills-disabled-tab2" tabindex="0">
                                 <div class="wsus__courses_review box_area">
-                                    <h3>Customer Reviews</h3>
+                                    <h3>{{ __('Customer Reviews') }}</h3>
                                     <div class="row align-items-center mb_50">
                                         <div class="col-xl-4 col-md-6">
                                             <div class="total_review">
@@ -212,7 +197,7 @@
                                                    @endfor
                                                    
                                                 </p>
-                                                <h4>{{ $course->reviews()->count() }} Ratings</h4>
+                                                 
                                             </div>
                                         </div>
                                         <div class="col-xl-8 col-md-6">
@@ -271,7 +256,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <h3>Reviews</h3>
+                                    <h3>{{ __('Reviews') }}</h3>
 
                                     @foreach($reviews as $review)
                                     <div class="wsus__course_single_reviews">
@@ -298,31 +283,7 @@
                                     </div>
                                 
                                 </div>
-                                @auth
-                                <div class="wsus__courses_review_input box_area mt_40">
-                                    <h3>Write a Review</h3>
-                                    <p class="short_text">Your email address will not be published. Required fields are
-                                        marked *</p>
-                                    <div class="select_rating d-flex flex-wrap">Your Rating:
-                                        <ul id="starRating" data-stars="5"></ul>
-                                    </div>
-                                    <form action="{{ route('review.store', ['locale' => request()->route('locale')]) }}" method="POST">
-                                        @csrf
-                                        <div class="row">
-                                            <input type="hidden" name="rating" value="" id="rating">
-                                            <input type="hidden" name="course" value="{{ $course->id }}">
-                                            <div class="col-xl-12">
-                                                <textarea rows="7" placeholder="Review" name="review"></textarea>
-                                            </div>
-                                            <div class="col-12 mt-3">
-                                                <button type="submit" class="common_btn">Submit Now</button>    
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                @else
-                                <div class="alert alert-info mt-3 text-center" role="alert">Please <a href="{{ route('login') }}">Login</a> First To Write A Review</div>
-                                @endauth
+                               
                             </div>
                         </div>
                     </div>
@@ -345,9 +306,9 @@
                             @if($course->discount > 0)
                             Price: <del>{{ config('settings.currency_icon') }}{{ $course->price }}</del>${{ $course->discount }}
                             @elseif($course->price <= 0)
-                                FREE
+                                {{ __('FREE') }}
                             @else
-                               Price: {{ config('settings.currency_icon') }}{{ $course->price }}
+                               {{ __('Price') }}: {{ config('settings.currency_icon') }}{{ $course->price }}
                             @endif
                         </h3>
                             
@@ -361,7 +322,7 @@
                                     <p>
                                         <span><img src="{{ asset('frontend/assets/images/clock_icon_black.png') }}"
                                                 alt="clock" class="img-fluid"></span>
-                                        Course Duration
+                                        {{ __('Course Duration') }}
                                     </p>
                                     {{ convertMinutesToHours($course->duration) }}
                                 </li>
@@ -377,7 +338,7 @@
                                     <p>
                                         <span><img src="{{ asset('frontend/assets/images/user_icon_black_2.png') }}"
                                                 alt="User" class="img-fluid"></span>
-                                        Student Enrolled
+                                        {{ __('Student Enrolled') }}
                                     </p>
                                     {{ $course->enrollments()->count() }}
                                 </li>
@@ -385,25 +346,20 @@
                                     <p>
                                         <span><img src="{{ asset('frontend/assets/images/language_icon_black.png') }}"
                                                 alt="Language" class="img-fluid"></span>
-                                        Language
+                                        {{ __('Language') }}
                                     </p>
                                     {{ $course->language->name }}
                                 </li>
                             </ul>
-                            <a class="common_btn add_to_cart" data-course-id="{{ $course->id }}" href="" >Enroll <i class="far fa-arrow-right"></i></a>
+                            <a class="common_btn add_to_cart" data-course-id="{{ $course->id }}" href="" >{{ __('Enroll') }} <i class="far fa-arrow-right"></i></a>
+                            <button class="common_btn mt-2 js-apply-course" type="button" data-course-id="{{ $course->id }}">{{ __('Apply for a course') }}</button>
                         </div>
                         
                         <div class="wsus__courses_sidebar_share_area">
-                            <span>Share:</span>
-                            <ul>
-                                <li class="ez-facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li class="ez-linkedin"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-                                <li class="ez-x"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li class="ez-reddit"><a href="#"><i class="fab fa-reddit"></i></a></li>
-                            </ul>
+                            
                         </div>
                         <div class="wsus__courses_sidebar_info">
-                            <h3>This Course Includes</h3>
+                            <h3>{{ __('This Course Includes') }}</h3>
                             <ul>
                                 <li>
                                     <span><img src="{{ asset('frontend/assets/images/video_icon_black.png') }}"
@@ -414,13 +370,13 @@
                                     <li>
                                         <span><img src="{{ asset('frontend/assets/images/certificate_icon_black.png') }}"
                                                 alt="Certificate" class="img-fluid"></span>
-                                        Certificate of Completion
+                                        {{ __('Certificate of Completion') }}
                                     </li>
                                 @endif
                                 <li>
                                     <span><img src="{{ asset('frontend/assets/images/life_time_icon.png') }}"
                                             alt="Certificate" class="img-fluid"></span>
-                                    Course Lifetime Access
+                                    {{ __('Course Lifetime Access') }}
                                 </li>
                             </ul>
 
@@ -432,7 +388,7 @@
                                 </div>
                                 <div class="text">
                                     <h3>{{ $course->instructor->name }}</h3>
-                                    <p><span>Instructor</span></p>
+                                    <p><span>{{ __('Instructor') }}</span></p>
                                 </div>
                             </div>
                             
@@ -442,9 +398,12 @@
             </div>
         </div>
     </section>
+
+-->
     <!--===========================
                 COURSES DETAILS END
             ============================-->
+    
 @endsection
 
 @push('scripts')
@@ -458,5 +417,22 @@
         $('#rating').val($starRating);
       })
     })
+
+    // Load minimal application modal for this course
+    document.addEventListener('click', async function(e){
+      const btn = e.target.closest('.js-apply-course');
+      if(!btn) return;
+      const courseId = btn.getAttribute('data-course-id');
+      const locale = '{{ app()->getLocale() }}';
+      const url = `/${locale}/courses/${courseId}/apply-modal`;
+      const modalWrap = document.querySelector('#dynamic-modal .dynamic-modal-content');
+      if(!modalWrap) return;
+      modalWrap.innerHTML = '<div class="modal-content"><div class="modal-body">Loading...</div></div>';
+      const resp = await fetch(url, { headers: { 'X-Requested-With':'XMLHttpRequest' }});
+      const html = await resp.text();
+      modalWrap.innerHTML = html;
+      const m = new bootstrap.Modal(document.getElementById('dynamic-modal'));
+      m.show();
+    });
 </script>
 @endpush

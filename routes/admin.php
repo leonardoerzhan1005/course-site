@@ -46,6 +46,12 @@ use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\TopBarController;
 use App\Http\Controllers\Admin\VideoSectionController;
+use App\Http\Controllers\Admin\IssuedCertificateController;
+use App\Http\Controllers\Admin\CourseApplicationAdminController;
+use App\Http\Controllers\Admin\CourseSessionController;
+use App\Http\Controllers\Admin\StudentsController;
+use App\Http\Controllers\Admin\InstructorsController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\WithdrawRequestController;
 use App\Http\Controllers\Admin\ApplicationController as AdminApplicationController;
 use App\Http\Controllers\Admin\ApplicationFacultyController;
@@ -325,6 +331,46 @@ Route::group([
     Route::post('certificate-builder', [CertificateBuilderController::class, 'update'])->name('certificate-builder.update');
     Route::post('certificate-item', [CertificateBuilderController::class, 'itemUpdate'])->name('certificate-item.update');
 
+    /** Issued certificates list */
+    Route::get('issued-certificates', [IssuedCertificateController::class, 'index'])->name('issued-certificates.index');
+    Route::post('issued-certificates', [IssuedCertificateController::class, 'store'])->name('issued-certificates.store');
+    Route::get('issued-certificates/{issued}', [IssuedCertificateController::class, 'show'])->whereNumber('issued')->name('issued-certificates.show');
+    Route::post('issued-certificates/{issued}/generate', [IssuedCertificateController::class, 'generate'])->whereNumber('issued')->name('issued-certificates.generate');
+    /** Students management */
+    Route::get('students', [StudentsController::class, 'index'])->name('students.index');
+    Route::get('students/create', [StudentsController::class, 'create'])->name('students.create');
+    Route::post('students', [StudentsController::class, 'store'])->name('students.store');
+    Route::get('students/{user}', [StudentsController::class, 'show'])->whereNumber('user')->name('students.show');
+    Route::get('students/{user}/edit', [StudentsController::class, 'edit'])->whereNumber('user')->name('students.edit');
+    Route::put('students/{user}', [StudentsController::class, 'update'])->whereNumber('user')->name('students.update');
+    Route::delete('students/{user}', [StudentsController::class, 'destroy'])->whereNumber('user')->name('students.destroy');
+    Route::post('students/{user}/issue-certificate', [StudentsController::class, 'issueCertificate'])->whereNumber('user')->name('students.issue-certificate');
+
+    /** Instructors management */
+    Route::get('instructors', [InstructorsController::class, 'index'])->name('instructors.index');
+    Route::get('instructors/create', [InstructorsController::class, 'create'])->name('instructors.create');
+    Route::post('instructors', [InstructorsController::class, 'store'])->name('instructors.store');
+    Route::get('instructors/{instructor}/edit', [InstructorsController::class, 'edit'])->whereNumber('instructor')->name('instructors.edit');
+    Route::put('instructors/{instructor}', [InstructorsController::class, 'update'])->whereNumber('instructor')->name('instructors.update');
+
+    /** Users management */
+    Route::get('users', [UsersController::class, 'index'])->name('users.index');
+    Route::get('users/{user}/edit', [UsersController::class, 'edit'])->whereNumber('user')->name('users.edit');
+    Route::put('users/{user}', [UsersController::class, 'update'])->whereNumber('user')->name('users.update');
+
+    /** Course Applications */
+    Route::get('course-applications', [CourseApplicationAdminController::class, 'index'])->name('course-applications.index');
+    Route::get('course-applications/{application}', [CourseApplicationAdminController::class, 'show'])->name('course-applications.show');
+    Route::post('course-applications/{application}/status', [CourseApplicationAdminController::class, 'updateStatus'])->name('course-applications.status');
+
+    /** Course Sessions (scheduling) */
+    Route::get('course-sessions', [CourseSessionController::class, 'index'])->name('course-sessions.index');
+    Route::get('course-sessions/create', [CourseSessionController::class, 'create'])->name('course-sessions.create');
+    Route::post('course-sessions', [CourseSessionController::class, 'store'])->name('course-sessions.store');
+    Route::get('course-sessions/{course_session}/edit', [CourseSessionController::class, 'edit'])->name('course-sessions.edit');
+    Route::put('course-sessions/{course_session}', [CourseSessionController::class, 'update'])->name('course-sessions.update');
+    Route::delete('course-sessions/{course_session}', [CourseSessionController::class, 'destroy'])->name('course-sessions.destroy');
+
     /** Hero Routes */
     Route::resource('hero', HeroController::class);
     /** Feature Routes */
@@ -352,7 +398,14 @@ Route::group([
 
 
     /** Video Section Routes */
-    Route::resource('testimonial-section', TestimonialController::class);
+    Route::resource('testimonial-section', TestimonialController::class)
+    ->parameters([
+        'testimonial-section' => 'testimonial'
+    ])
+    ->scoped([
+        'testimonial' => 'id'
+    ]);
+
 
     /** Counter Routes */
     Route::resource('counter-section', CounterController::class);
@@ -396,6 +449,10 @@ Route::group([
     /** blog routes */
     Route::resource('blogs', BlogController::class)
         ->parameters(['blogs' => 'blog']);
+    
+    /** Upload image from TinyMCE editor */
+    Route::post('upload-editor-image', [BlogController::class, 'uploadEditorImage'])
+        ->name('upload-editor-image');
 
 
     /** Database Clear Routes */

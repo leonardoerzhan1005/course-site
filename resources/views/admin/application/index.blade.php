@@ -58,6 +58,11 @@
                                         <td>
                                             @if ($application->course)
                                                 {{ $application->course->translated_title ?? $application->course->title }}
+                                            @elseif ($application->custom_course_name)
+                                                <div class="d-flex flex-column">
+                                                    <span class="text-primary">{{ $application->custom_course_name }}</span>
+                                                    <small class="text-muted">{{ __('Custom course') }}</small>
+                                                </div>
                                             @else
                                                 <span class="text-muted">{{ __('Not specified') }}</span>
                                             @endif

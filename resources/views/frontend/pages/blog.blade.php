@@ -10,10 +10,10 @@
                 <div class="row">
                     <div class="col-12 wow fadeInUp">
                         <div class="wsus__breadcrumb_text">
-                            <h1>{{ __('Blogs') }}</h1>
+                            <h1>{{ __('News') }}</h1>
                             <ul>
                                 <li><a href="{{ url('/') }}">{{ __('Home') }}</a></li>
-                                <li>{{ __('Blogs') }}</li>
+                                <li>{{ __('News') }}</li>
                             </ul>
                         </div>
                     </div>
@@ -31,11 +31,35 @@
         ============================-->
     <section class="wsus__blog_page mt_95 xs_mt_75 pb_120 xs_pb_100">
         <div class="container">
+            <!-- Category Filter -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">{{__('Filter by Category')}}</h6>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="{{ localizedRoute('blog.index') }}" 
+                                   class="btn {{ !request('category') ? 'btn-primary' : 'btn-outline-primary' }}">
+                                    {{__('All Categories')}}
+                                </a>
+                                @foreach($blogCategories as $category)
+                                    <a href="{{ localizedRoute('blog.index', ['category' => $category->slug]) }}" 
+                                       class="btn {{ request('category') == $category->slug ? 'btn-primary' : 'btn-outline-primary' }}">
+                                        {{ $category->name }}
+                                        <span class="badge bg-secondary ms-1">{{ $category->blogs_count ?? 0 }}</span>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="row">
                 @forelse($blogs as $blog)
                 <div class="col-xl-6 wow fadeInUp">
                     <div class="wsus__single_blog_4">
-                        <a href="{{ localizedRoute('blog.show', $blog->slug) }}" class="wsus__single_blog_4_img">
+                        <a href="{{ localizedRoute('blog.show', $blog->translated_slug) }}" class="wsus__single_blog_4_img">
                             <img src="{{ asset($blog->image) }}" alt="Blog" class="img-fluid">
                             <span class="date">{{ date('M d, Y', strtotime($blog->created_at)) }}</span>
                         </a>
@@ -49,10 +73,18 @@
                                     <span><img src="{{ asset('frontend/assets/images/comment_icon_black.png') }}" alt="Comment" class="img-fluid"></span>
                                     {{ $blog->comments()->count() }} {{ __('Comments') }}
                                 </li>
+                                @if($blog->category)
+                                <li>
+                                    <span><i class="ti ti-category"></i></span>
+                                    <a href="{{ localizedRoute('blog.index', ['category' => $blog->category->slug]) }}" class="text-primary">
+                                        {{ $blog->category->name }}
+                                    </a>
+                                </li>
+                                @endif
                             </ul>
-                            <a href="{{ localizedRoute('blog.show', $blog->slug) }}" class="title">{{ $blog->title }}</a>
-                            <p>{{ Str::limit(strip_tags($blog->description), 120) }}</p>
-                            <a href="{{ localizedRoute('blog.show', $blog->slug) }}" class="common_btn">{{ __('Read More') }} <i class="far fa-arrow-right"></i></a>
+                            <a href="{{ localizedRoute('blog.show', $blog->translated_slug) }}" class="title">{{ $blog->translated_title }}</a>
+                            <p>{{ Str::limit(strip_tags($blog->translated_description), 120) }}</p>
+                            <a href="{{ localizedRoute('blog.show', $blog->translated_slug) }}" class="common_btn">{{ __('Read More') }} <i class="far fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>

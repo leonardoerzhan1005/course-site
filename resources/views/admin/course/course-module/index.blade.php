@@ -5,7 +5,7 @@
         <div class="container-xl">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Course Levels</h3>
+                    <h3 class="card-title">Courses</h3>
                     <div class="card-actions">
                         <a href="{{ route('admin.courses.create', ['locale' => app()->getLocale()]) }}" class="btn btn-primary">
                             <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
@@ -25,7 +25,7 @@
                         <table class="table table-vcenter card-table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Title</th>
                                     <th>Price</th>
                                     <th>Instructor</th>
                                     <th>Status</th>
@@ -36,7 +36,7 @@
                             <tbody>
                                 @forelse ($courses as $course)
                                 <tr>
-                                <td>{{ $course->title }}</td>
+                                <td>{{ $course->translated_title ?? $course->title }}</td>
                                 <td>{{ $course->price }}</td>
                                 <td>{{ $course->instructor->name }}</td>
                                 <td>

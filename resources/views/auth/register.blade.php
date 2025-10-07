@@ -8,10 +8,7 @@
         <div class="row align-items-center">
             <div class="col-xxl-5 col-xl-6 col-lg-6 wow fadeInLeft">
                 <div class="wsus__sign_img">
-                    <img src="{{ asset('frontend/assets/images/login_img_2.jpg') }}" alt="login" class="img-fluid">
-                    <a href="index.html">
-                        <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="EduCore" class="img-fluid">
-                    </a>
+                     
                 </div>
             </div>
             <div class="col-xxl-4 col-xl-5 col-lg-6 col-md-9 m-auto wow fadeInRight">
@@ -31,15 +28,15 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab" tabindex="0">
-                            <form action="{{ route('register', ['type' => 'student']) }}" method="POST">
+                            <form action="{{ route('register', ['type' => 'student', 'locale' => app()->getLocale()]) }}" method="POST">
                                 @csrf
-                                <h2>Sign Up<span>!</span></h2>
-                                <p class="new_user">Already have an account? <a href="{{ route('login') }}">Sign In</a></p>
+                                <h2>{{__('Sign Up')}}<span>!</span></h2>
+                                <p class="new_user">{{__('Already have an account?')}} <a href="{{ route('login', ['locale' => app()->getLocale()]) }}">{{__('Sign In')}}</a></p>
                                 <div class="row">
 
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Name</label>
+                                            <label>{{__('Name')}}</label>
                                             <input type="text" placeholder="First name" name="name" value="{{ old('name') }}" required>
 
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -48,7 +45,7 @@
                                    
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Your email</label>
+                                            <label>{{__('Your email')}}</label>
                                             <input type="email" placeholder="Your email" name="email" value="{{ old('email') }}" required>
 
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -56,7 +53,7 @@
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Password</label>
+                                            <label>{{__('Password')}}</label>
                                             <input type="password" placeholder="Your password" name="password" required>
 
                                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -64,7 +61,7 @@
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Confirm Password</label>
+                                            <label>{{__('Confirm Password')}}</label>
                                             <input type="password" placeholder="Your password" name="password_confirmation" required>
 
                                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
@@ -73,7 +70,7 @@
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
                                             
-                                            <button type="submit" class="common_btn">Sign Up</button>
+                                            <button type="submit" class="common_btn">{{__('Sign Up')}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -82,14 +79,14 @@
 
                         <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                             aria-labelledby="pills-profile-tab" tabindex="0">
-                            <form action="{{ route('register', ['type' => 'instructor']) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('register', ['type' => 'instructor', 'locale' => app()->getLocale()]) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <h2>Instructor Sign Up<span>!</span></h2>
-                                <p class="new_user">Already have an account? <a href="{{ route('login') }}">Sign In</a></p>
+                                <h2>{{__('Instructor Sign Up')}}<span>!</span></h2>
+                                <p class="new_user">{{__('Already have an account?')}} <a href="{{ route('login', ['locale' => app()->getLocale()]) }}">{{__('Sign In')}}</a></p>
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Name</label>
+                                            <label>{{__('Name')}}</label>
                                             <input type="text" placeholder="Name" name="name" required>
                                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
 
@@ -98,7 +95,7 @@
                                     
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Your email</label>
+                                            <label>{{__('Your email')}}</label>
                                             <input type="email" placeholder="Your email" name="email" required>
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
@@ -106,7 +103,7 @@
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Document (Education/Certificate)</label>
+                                            <label>{{__('Document (Education/Certificate)')}}</label>
                                             <input type="file" placeholder="Document" name="document" required>
                                             <x-input-error :messages="$errors->get('document')" class="mt-2" />
 
@@ -114,7 +111,7 @@
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Password</label>
+                                            <label>{{__('Password')}}</label>
                                             <input type="password" placeholder="Your password" name="password" required>
                                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
@@ -122,7 +119,7 @@
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Confirm Password</label>
+                                            <label>{{__('Confirm Password')}}</label>
                                             <input type="password" placeholder="Your password" name="password_confirmation" required>
                                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
 
@@ -131,7 +128,7 @@
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
                                             
-                                            <button type="submit" class="common_btn">Sign Up</button>
+                                            <button type="submit" class="common_btn">{{__('Sign Up')}}</button>
                                         </div>
                                     </div>
                                 </div>

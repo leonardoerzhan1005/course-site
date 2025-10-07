@@ -90,13 +90,7 @@
                             <div class="wsus__single_courses_text_3">
                                 <div class="rating_area">
                                     <!-- <a href="#" class="category">Design</a> -->
-                                    <p class="rating">
-                                        @for($i = 1; $i <= $course->reviews()->avg('rating'); $i++)
-                                        <i class="fas fa-star"></i>
-                                        @endfor
-                                        
-                                        <span>({{ $course->reviews()->avg('rating') }} Rating)</span>
-                                    </p>
+                                    
                                 </div>
 
                                 <a class="title" href="{{ localizedRoute('courses.show', $course->translated_slug) }}">{{ $course->translated_title }}</a>
@@ -111,16 +105,13 @@
                                     <h4>{{ $course->instructor->name }}</h4>
                                 </a>
                             </div>
+
+                            <!--
                             <div class="wsus__single_courses_3_footer">
                                 <a class="common_btn add_to_cart" href="#" data-course-id="{{ $course->id }}">{{__('Enroll')}}<i class="far fa-arrow-right"></i></a>
-                                <p>
-                                    @if($course->discount > 0)
-                                    <del>${{ $course->discount }}</del> ${{ $course->price }}
-                                    @else
-                                    ${{ $course->price }}
-                                    @endif
-                                </p>
+                                
                             </div>
+-->
                         </div>
                     </div>
                     @endforeach

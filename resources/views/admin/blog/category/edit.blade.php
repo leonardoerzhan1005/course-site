@@ -18,13 +18,53 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-
-                            <div class="col-md-12">
-                                <x-input-block name="name" placeholder="Enter name" :value="$category->name" />
-                            </div>  
-
                             <div class="col-md-3">
                                 <x-input-toggle-block name="status" label="Status" :checked="$category->status == 1" />
+                            </div>
+                        </div>
+
+                        <!-- Russian (Required) -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h4 class="card-title">Русский (обязательно)</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Название (RU)</label>
+                                    <input type="text" name="translations[ru][name]" class="form-control" 
+                                           value="{{ $category->translations->where('locale', 'ru')->first()?->name ?? '' }}" required>
+                                    <x-input-error :messages="$errors->get('translations.ru.name')" class="mt-2" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Kazakh (Optional) -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h4 class="card-title">Қазақша (міндетті емес)</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Атауы (KK)</label>
+                                    <input type="text" name="translations[kk][name]" class="form-control" 
+                                           value="{{ $category->translations->where('locale', 'kk')->first()?->name ?? '' }}">
+                                    <x-input-error :messages="$errors->get('translations.kk.name')" class="mt-2" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- English (Optional) -->
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h4 class="card-title">English (Optional)</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Name (EN)</label>
+                                    <input type="text" name="translations[en][name]" class="form-control" 
+                                           value="{{ $category->translations->where('locale', 'en')->first()?->name ?? '' }}">
+                                    <x-input-error :messages="$errors->get('translations.en.name')" class="mt-2" />
+                                </div>
                             </div>
                         </div>
 

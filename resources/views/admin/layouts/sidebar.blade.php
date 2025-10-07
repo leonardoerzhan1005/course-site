@@ -193,8 +193,8 @@
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <a href="{{ route('admin.profile.index', ['locale' => app()->getLocale()]) }}" class="dropdown-item">Profile</a>
                     <div class="dropdown-divider"></div>
-                    <a href="./settings.html" class="dropdown-item">Settings</a>
-                    <a href="./sign-in.html" class="dropdown-item">Logout</a>
+                    <a href="./settings.html" class="dropdown-item">{{__('Settings')}}</a>
+                    <a href="./sign-in.html" class="dropdown-item">{{__('Logout')}}</a>
                 </div>
             </div>
         </div>
@@ -207,8 +207,16 @@
                             <i class="ti ti-home"></i>
                         </span>
                         <span class="nav-link-title">
-                            Dashboard
+                            {{__('Dashboard')}}
                         </span>
+                    </a>
+                </li>
+                <li class="nav-item {{ sidebarItemActive(['admin.course-applications.*']) }}">
+                    <a class="nav-link" href="{{ route('admin.course-applications.index', ['locale' => app()->getLocale()]) }}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <i class="ti ti-clipboard-list"></i>
+                        </span>
+                        <span class="nav-link-title">{{__('Course Applications')}}</span>
                     </a>
                 </li>
                 <li class="nav-item {{ sidebarItemActive(['admin.instructor-requests.index']) }}">
@@ -218,7 +226,7 @@
                         <i class="ti ti-help-hexagon"></i>
                         </span>
                         <span class="nav-link-title">
-                            Instructor Requests
+                            {{__('Instructor Requests')}}
                         </span>
                     </a>
                 </li>
@@ -230,7 +238,7 @@
                             <i class="ti ti-book"></i>
                         </span>
                         <span class="nav-link-title">
-                            Course Management
+                            {{__('Course Management')}}
                         </span>
                     </a>
 
@@ -238,88 +246,88 @@
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.courses.*']) }}" href="{{ route('admin.courses.index', ['locale' => app()->getLocale()]) }}">
-                                    Courses
+                                    {{__('Courses')}}
                                 </a>
 
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.course-categories.*']) }}" href="{{ route('admin.course-categories.index', ['locale' => app()->getLocale()]) }}">
-                                    Course Categories
+                                    {{__('Course Categories')}}
                                 </a>
 
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.course-languages.*']) }}" href="{{ route('admin.course-languages.index', ['locale' => app()->getLocale()]) }}">
-                                    Course Languages
+                                    {{__('Course Languages')}}
                                 </a>
 
                             </div>
 
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.course-levels.*']) }}" href="{{ route('admin.course-levels.index', ['locale' => app()->getLocale()]) }}">
-                                    Course Levels
+                                    {{__('Course Levels')}} 
                                 </a>
 
                             </div>
 
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.reviews.*']) }}" href="{{ route('admin.reviews.index', ['locale' => app()->getLocale()]) }}">
-                                    Course Reviews
+                                    {{__('Course Reviews')}}
                                 </a>
 
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.course-contents.*']) }}" href="{{ route('admin.course-contents.index', ['locale' => app()->getLocale()]) }}">
-                                    Course Contents
+                                    {{__('Course Contents')}} 
                                 </a>
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.course-contents-v2.*']) }}" href="{{ route('admin.course-contents-v2.index', ['locale' => app()->getLocale()]) }}">
-                                    Course Contents v2
+                                    {{__('Course Contents v2')}}
                                 </a>
                             </div>
                         </div>
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.application-faculties.*']) }}" href="{{ route('admin.application-faculties.index', ['locale' => app()->getLocale()]) }}">
-                                    Faculties
+                                    {{__('Faculties')}}
                                 </a>
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.application-specialties.*']) }}" href="{{ route('admin.application-specialties.index', ['locale' => app()->getLocale()]) }}">
-                                    Specializations
+                                    {{__('Specializations')}}
                                 </a>
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.application-countries.*']) }}" href="{{ route('admin.application-countries.index', ['locale' => app()->getLocale()]) }}">
-                                    Countries
+                                    {{__('Countries')}}
                                 </a>
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.application-cities.*']) }}" href="{{ route('admin.application-cities.index', ['locale' => app()->getLocale()]) }}">
-                                    Cities
+                                    {{__('Cities')}}
                                 </a>
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.application-degrees.*']) }}" href="{{ route('admin.application-degrees.index', ['locale' => app()->getLocale()]) }}">
-                                    Academic Degrees
+                                    {{__('Academic Degrees')}}
                                 </a>
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.application-org-types.*']) }}" href="{{ route('admin.application-org-types.index', ['locale' => app()->getLocale()]) }}">
-                                    Institution Categories
+                                    {{__('Institution Categories')}}
                                 </a>
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.application-course-languages.*']) }}" href="{{ route('admin.application-course-languages.index', ['locale' => app()->getLocale()]) }}">
-                                    Course Languages (Application)
+                                    {{__('Course Languages (Application)')}}
                                 </a>
                             </div>
                         </div>
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.application-courses.*']) }}" href="{{ route('admin.application-courses.index', ['locale' => app()->getLocale()]) }}">
-                                    Application Courses Settings
+                                    {{__('Application Courses Settings')}}
                                 </a>
                             </div>
                         </div>
@@ -334,11 +342,59 @@
                             <i class="ti ti-certificate"></i>
                         </span>
                         <span class="nav-link-title">
-                            Certificate Builder
+                            {{__('Certificate Builder')}}
                         </span>
                     </a>
                 </li>
-
+                <li class="nav-item {{ sidebarItemActive(['admin.issued-certificates.*']) }}">
+                    <a class="nav-link" href="{{ route('admin.issued-certificates.index', ['locale' => app()->getLocale()]) }}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <i class="ti ti-list-details"></i>
+                        </span>
+                        <span class="nav-link-title">{{__('Issued Certificates')}}</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ sidebarItemActive(['admin.instructors.*']) }}">
+                    <a class="nav-link" href="{{ route('admin.instructors.index', ['locale' => app()->getLocale()]) }}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <i class="ti ti-user-star"></i>
+                        </span>
+                        <span class="nav-link-title">{{__('Instructors')}}</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ sidebarItemActive(['admin.users.*']) }}">
+                    <a class="nav-link" href="{{ route('admin.users.index', ['locale' => app()->getLocale()]) }}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <i class="ti ti-users"></i>
+                        </span>
+                        <span class="nav-link-title">{{__('Users')}}</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ sidebarItemActive(['admin.students.*']) }}">
+                    <a class="nav-link" href="{{ route('admin.students.index', ['locale' => app()->getLocale()]) }}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <i class="ti ti-users"></i>
+                        </span>
+                        <span class="nav-link-title">{{__('Students')}}</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ sidebarItemActive(['admin.course-applications.*']) }}">
+                    <a class="nav-link" href="{{ route('admin.course-applications.index', ['locale' => app()->getLocale()]) }}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <i class="ti ti-clipboard-list"></i>
+                        </span>
+                        <span class="nav-link-title">{{__('Course Applications')}}</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ sidebarItemActive(['admin.course-sessions.*']) }}">
+                    <a class="nav-link" href="{{ route('admin.course-sessions.index', ['locale' => app()->getLocale()]) }}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <i class="ti ti-calendar-event"></i>
+                        </span>
+                        <span class="nav-link-title">{{__('Course Sessions')}}</span>
+                    </a>
+                </li>
+                {{--
                 <li class="nav-item {{ sidebarItemActive(['admin.orders.*']) }}">
                     <a class="nav-link" href="{{ route('admin.orders.index', ['locale' => app()->getLocale()]) }}">
 
@@ -347,11 +403,11 @@
                            <i class="ti ti-shopping-cart"></i>
                         </span>
                         <span class="nav-link-title">
-                            Orders
+                            {{__('Orders')}}
                         </span>
                     </a>
                 </li>
-
+                --}}
                 <li class="nav-item {{ sidebarItemActive(['admin.applications.*']) }}">
                     <a class="nav-link" href="{{ route('admin.applications.index', ['locale' => app()->getLocale()]) }}">
                         <span
@@ -359,10 +415,11 @@
                            <i class="ti ti-file-text"></i>
                         </span>
                         <span class="nav-link-title">
-                            Заявки
+                            {{__('Applications')}}
                         </span>
                     </a>
                 </li>
+                {{--
                 <li class="nav-item {{ sidebarItemActive(['admin.withdraw-request.*']) }}">
                     <a class="nav-link" href="{{ route('admin.withdraw-request.index', ['locale' => app()->getLocale()]) }}">
 
@@ -371,11 +428,11 @@
                            <i class="ti ti-coins"></i>
                         </span>
                         <span class="nav-link-title">
-                            Payout Requests
+                            {{__('Payout Requests')}}
                         </span>
                     </a>
                 </li>
-
+                --}}
                 <li class="nav-item dropdown {{ sidebarItemActive(['admin.blogs.*', 'admin.blog-categories.*']) }}">
                     <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                         data-bs-auto-close="false" role="button" aria-expanded="false">
@@ -384,7 +441,7 @@
                             <i class="ti ti-brand-blogger"></i>
                         </span>
                         <span class="nav-link-title">
-                            Content Management
+                            {{__('Content Management')}}
                         </span>
                     </a>
 
@@ -392,7 +449,7 @@
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.blog-categories.*']) }}" href="{{ route('admin.blog-categories.index', ['locale' => app()->getLocale()]) }}">
-                                   Blog Categoires
+                                  {{__('News Categories')}}
                                 </a>
 
                             </div>
@@ -402,7 +459,7 @@
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.blogs.*']) }}" href="{{ route('admin.blogs.index', ['locale' => app()->getLocale()]) }}">
-                                    Blogs
+                                    {{__('News')}}
                                 </a>
                             </div>
                         </div>
@@ -414,10 +471,10 @@
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                             <i class="ti ti-files"></i>
                         </span>
-                        <span class="nav-link-title">Documents</span>
+                        <span class="nav-link-title">{{__('Documents')}}</span>
                     </a>
                 </li>
-
+                {{--    
                 <li class="nav-item {{ sidebarItemActive(['admin.payout-gateway.*']) }}">
                     <a class="nav-link" href="{{ route('admin.payout-gateway.index', ['locale' => app()->getLocale()]) }}">
 
@@ -426,11 +483,11 @@
                             <i class="ti ti-cash"></i>
                         </span>
                         <span class="nav-link-title">
-                            Payout Gateways
+                            {{__('Payout Gateways')}}
                         </span>
                     </a>
                 </li>
-
+                --}}
                 <li class="nav-item dropdown {{ sidebarItemActive(['admin.hero.*', 'admin.feature.*', 'admin.counter-section.*', 'admin.about-section.*','admin.testimonial-section.*', 'admin.video-section.*','admin.featured-instructor-section.*', 'admin.brand-section.*', 'admin.latest-courses-section.*', 'admin.become-instructor-section.*']) }}">
                     <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                         data-bs-auto-close="false" role="button" aria-expanded="false">
@@ -439,7 +496,7 @@
                             <i class="ti ti-layout-grid"></i>
                         </span>
                         <span class="nav-link-title">
-                            Sections
+                            {{__('Sections')}}
                         </span>
                     </a>
 
@@ -448,31 +505,31 @@
                            
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.hero.*']) }}" href="{{ route('admin.hero.index', ['locale' => app()->getLocale()]) }}">
-                                    Hero
+                                    {{__('Hero')}}
                                 </a>
 
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.feature.*']) }}" href="{{ route('admin.feature.index', ['locale' => app()->getLocale()]) }}">
-                                    Features
+                                    {{__('Features')}}
                                 </a>
 
                             </div>
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.about-section.*']) }}" href="{{ route('admin.about-section.index', ['locale' => app()->getLocale()]) }}">
-                                    About Us
+                                    {{__('About Us')}}
                                 </a>
 
                             </div>
                              <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.latest-courses-section.*']) }}" href="{{ route('admin.latest-courses-section.index', ['locale' => app()->getLocale()]) }}">
-                                    Latest Courses
+                                    {{__('Latest Courses')}}
                                 </a>
                             </div>
                            
                              <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.become-instructor-section.*']) }}" href="{{ route('admin.become-instructor-section.index', ['locale' => app()->getLocale()]) }}">
-                                    Become Instructor Banner
+                                    {{__('Become Instructor Banner')}}
                                 </a>
                             </div>
 
@@ -483,24 +540,24 @@
                             </div>
                              <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.brand-section.*']) }}" href="{{ route('admin.brand-section.index', ['locale' => app()->getLocale()]) }}">
-                                    Brand
+                                    {{__('Brand')}}
                                 </a>
                             </div>
 
                              <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.featured-instructor-section.*']) }}" href="{{ route('admin.featured-instructor-section.index', ['locale' => app()->getLocale()]) }}">
-                                   Featured Instructor 
+                                   {{__('Featured Instructor')}} 
                                 </a>
                             </div>
 
                              <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.testimonial-section.*']) }}" href="{{ route('admin.testimonial-section.index', ['locale' => app()->getLocale()]) }}">
-                                    Testimonial
+                                    {{__('Testimonial')}}
                                 </a>
                             </div>
                              <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.counter-section.*']) }}" href="{{ route('admin.counter-section.index', ['locale' => app()->getLocale()]) }}">
-                                   Counter 
+                                   {{__('Counter')}} 
                                 </a>
                             </div>
 
@@ -518,7 +575,7 @@
                             <i class="ti ti-address-book"></i>
                         </span>
                         <span class="nav-link-title">
-                            Contact
+                            {{__('Contact')}}
                         </span>
                     </a>
 
@@ -526,14 +583,14 @@
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.contact.*']) }}" href="{{ route('admin.contact.index', ['locale' => app()->getLocale()]) }}">
-                                   Contact Cards 
+                                   {{__('Contact Cards')}} 
                                 </a>
 
                             </div>
                            
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item {{ sidebarItemActive(['admin.contact-setting.*']) }}" href="{{ route('admin.contact-setting.index', ['locale' => app()->getLocale()]) }}">
-                                   Contact Setting 
+                                   {{__('Contact Setting')}} 
                                 </a>
 
                             </div>
@@ -549,7 +606,7 @@
                             <i class="ti ti-layout-navbar"></i>
                         </span>
                         <span class="nav-link-title">
-                            Header / Footer
+                            {{__('Header / Footer')}}
                         </span>
                     </a>
 
@@ -593,11 +650,11 @@
                             <i class="ti ti-app-window"></i>
                         </span>
                         <span class="nav-link-title">
-                            Custom Pages
+                            {{__('Custom Pages')}}
                         </span>
                     </a>
                 </li>
-
+                {{--
                 <li class="nav-item">
                     <a class="nav-link {{ sidebarItemActive(['admin.payment-setting.*']) }}" href="{{ route('admin.payment-setting.index', ['locale' => app()->getLocale()]) }}">
                         <span
@@ -609,6 +666,7 @@
                         </span>
                     </a>
                 </li>
+                --}}
                 <li class="nav-item ">
                     <a class="nav-link {{ sidebarItemActive(['admin.settings.*']) }}" href="{{ route('admin.settings.index', ['locale' => app()->getLocale()]) }}">
                         <span
@@ -616,10 +674,11 @@
                             <i class="ti ti-settings"></i>
                         </span>
                         <span class="nav-link-title">
-                            Settings
+                            {{__('Settings')}}
                         </span>
                     </a>
                 </li>
+                {{--
                 <li class="nav-item ">
                     <a class="nav-link {{ sidebarItemActive(['admin.database-clear.*']) }}" href="{{ route('admin.database-clear.index', ['locale' => app()->getLocale()]) }}">
                         <span
@@ -631,6 +690,7 @@
                         </span>
                     </a>
                 </li>
+                --}}
             </ul>
         </div>
     </div>

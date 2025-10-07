@@ -4,6 +4,9 @@ use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Frontend\BlogController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\CertificateVerificationController;
+use App\Http\Controllers\Frontend\CourseApplicationController;
+use App\Http\Controllers\Frontend\CourseApplicationModalController;
 use App\Http\Controllers\Frontend\CourseContentController;
 use App\Http\Controllers\Frontend\CourseController;
 use App\Http\Controllers\Frontend\CoursePageController;
@@ -18,6 +21,7 @@ use App\Http\Controllers\Frontend\ProfileController;
 use App\Http\Controllers\Frontend\StudentDashboardController;
 use App\Http\Controllers\Frontend\StudentOrderController;
 use App\Http\Controllers\Frontend\WithdrawController;
+use Illuminate\Support\Facades\Route as RouteFacade;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -45,6 +49,9 @@ Route::group([
    Route::get('/', [FrontendController::class, 'index'])->name('home');
    Route::get('courses', [CoursePageController::class, 'index'])->name('courses.index');
    Route::get('courses/{slug}', [CoursePageController::class, 'show'])->name('courses.show');
+
+   // Auth routes localized
+   require __DIR__.'/auth.php';
 });
 
  //Route::get('/courses', [CoursePageController::class, 'index'])->name('courses.index');
@@ -87,9 +94,14 @@ Route::group([
  Route::get('contact', [FrontendContactController::class, 'index'])->name('contact.index');
  Route::post('contact', [FrontendContactController::class, 'sendMail'])->name('send.contact');
  Route::get('documents', [FrontendController::class, 'documents'])->name('documents');
+ Route::get('certificates', [CertificateVerificationController::class, 'index'])->name('certificates');
  Route::get('services', [FrontendController::class, 'services'])->name('services');
  Route::get('application-form', [FrontendController::class, 'applicationForm'])->name('application-form');
  Route::post('application-form', [FrontendController::class, 'applicationFormStore'])->name('application-form.store');
+ // Apply for a course
+ Route::post('courses/{course}/apply', [CourseApplicationController::class, 'store'])->name('course.apply');
+ // Load course application modal
+ Route::get('courses/{course}/apply-modal', [CourseApplicationModalController::class, 'show'])->name('course.apply-modal');
 
  // API маршруты для динамических списков
  Route::prefix('api')->group(function() {
@@ -97,6 +109,9 @@ Route::group([
      Route::get('/specialties', [\App\Http\Controllers\Application\Api\SpecialtiesController::class, 'index']);
      Route::get('/courses', [\App\Http\Controllers\Application\Api\CoursesController::class, 'index']);
      Route::get('/cities', [\App\Http\Controllers\Application\Api\CitiesController::class, 'index']);
+     Route::get('/org-types', [\App\Http\Controllers\Application\Api\DictionariesController::class, 'orgTypes']);
+     Route::get('/degrees', [\App\Http\Controllers\Application\Api\DictionariesController::class, 'degrees']);
+     Route::get('/course-languages', [\App\Http\Controllers\Application\Api\DictionariesController::class, 'courseLanguages']);
  });
 
  // Подключаем маршруты для анкет (внутри существующей группы с locale)
@@ -213,6 +228,13 @@ Route::group(['middleware' => ['auth:web', 'verified', 'check_role:instructor'],
 
 
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php'; // moved into localized group above
 
 require __DIR__.'/admin.php';
+
+// Short certificate URL: /c/{code}
+Route::get('/c/{code}', function($code) {
+    $issued = \App\Models\IssuedCertificate::where('code', $code)->firstOrFail();
+    $locale = app()->getLocale() ?: config('app.locale', 'en');
+    return redirect()->route('certificates', ['locale' => $locale, 'q' => $issued->code]);
+})->name('certificate.short');

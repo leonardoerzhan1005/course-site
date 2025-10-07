@@ -135,7 +135,16 @@
                                     <div class="mb-3">
                                         <label class="form-label text-muted">{{ __('Course') }}</label>
                                         <div class="form-control-plaintext">
-                                            {{ $application->course ? ($application->course->translated_title ?? $application->course->title) : __('Not specified') }}
+                                            @if ($application->course)
+                                                {{ $application->course->translated_title ?? $application->course->title }}
+                                            @elseif ($application->custom_course_name)
+                                                <div>
+                                                    <span class="text-primary">{{ $application->custom_course_name }}</span>
+                                                    <small class="text-muted d-block">{{ __('Custom course') }}</small>
+                                                </div>
+                                            @else
+                                                {{ __('Not specified') }}
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

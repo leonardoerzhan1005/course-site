@@ -10,6 +10,7 @@
     <meta name="csrf_token" content="{{ csrf_token() }}">
     @stack('meta')
     <title>{{ __('Institute for Advanced Training and Continuing Education') }}</title>
+ 
     <link rel="icon" type="image/png" href="{{ asset(config('settings.site_favicon')) }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
@@ -41,7 +42,7 @@
     @stack('header_scripts')
 </head>
 
-<body class="home_3">
+<body class="home_5">
 
 
     @include('frontend.layouts.header')
@@ -52,16 +53,16 @@
 
     @include('frontend.layouts.footer')
 
-
+ 
 
     <!-- Modal -->
     <div class="modal fade" id="dynamic-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog  modal-dialog-centered modal-lg dynamic-modal-content">
-
+          
         </div>
     </div>
 
-
+    
     <!--================================
         SCROLL BUTTON START
     =================================-->
@@ -126,6 +127,9 @@
     <!--main/custom js-->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
+
+ 
+
     <!--dynamic js-->
     @stack('scripts')
 
@@ -139,6 +143,9 @@
             @foreach ($errors->all() as $error)
                 notyf.error("{{ $error }}");
             @endforeach
+        @endif
+        @if (session('success'))
+            notyf.success("{{ session('success') }}");
         @endif
     </script>
 

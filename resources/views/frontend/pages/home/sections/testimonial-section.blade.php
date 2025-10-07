@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xl-6 m-auto wow fadeInUp">
                 <div class="wsus__section_heading mb_40">
-                    <h5>{{_('Testimonial')}}</h5>
+                    <h5>{{__('Testimonials')}}</h5>
                     <h2>{{__('See what your students say')}}</h2>
                 </div>
             </div>

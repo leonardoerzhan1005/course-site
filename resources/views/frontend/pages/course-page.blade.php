@@ -81,41 +81,9 @@
                                 @endforeach
                                 
                             </div>
-
-                            <div class="wsus__sidebar_course_lavel rating">
-                                <h3>{{ __('Rating') }}</h3>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultr1">
-                                    <label class="form-check-label" for="flexCheckDefaultr1">
-                                        <i class="fas fa-star"></i> 5 star
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultr2">
-                                    <label class="form-check-label" for="flexCheckDefaultr2">
-                                        <i class="fas fa-star"></i> 4 star or above
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultr3">
-                                    <label class="form-check-label" for="flexCheckDefaultr3">
-                                        <i class="fas fa-star"></i> 3 star or above
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultr4">
-                                    <label class="form-check-label" for="flexCheckDefaultr4">
-                                        <i class="fas fa-star"></i> 2 star or above
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefaultr5">
-                                    <label class="form-check-label" for="flexCheckDefaultr5">
-                                        <i class="fas fa-star"></i> 1 star or above
-                                    </label>
-                                </div>
-                            </div>
-
+                            
+                             
+                            
                           
 
                             <div class="wsus__sidebar_course_lavel duration">
@@ -131,10 +99,7 @@
                                 
                             </div>
 
-                            <div class="wsus__sidebar_rating">
-                                <h3>{{ __('Price Range') }}</h3>
-                                <div class="range_slider"></div>
-                            </div>
+                            
                             <br>
                             <div class="row">
                                 <button type="submit" class="common_btn">{{ __('Search') }}</button>
@@ -145,6 +110,7 @@
                 </div>
                 <div class="col-xl-9 col-lg-8 order-lg-1">
                     <div class="wsus__page_courses_header wow fadeInUp">
+                        <!--
                         <p>Showing <span>1-{{ $courses->count() }}</span> Of <span>{{ $courses->total() }}</span> Results</p>
                         
                         <form action="{{ localizedRoute('courses.index') }}">
@@ -154,6 +120,7 @@
                                 <option value="asc" @selected(request()->order == 'asc')>{{ __('Old to New') }}</option>
                             </select>
                         </form>
+                                                    -->
                     </div>
                     <div class="row">
                         @forelse($courses as $course)
@@ -165,26 +132,12 @@
                                     <span class="time"><i class="far fa-clock"></i> {{ convertMinutesToHours($course->duration) }}</span>
                                 </div>
                                 <div class="wsus__single_courses_text_3">
-                                    <div class="rating_area">
-                                        <!-- <a href="#" class="category">Design</a> -->
-                                        <p class="rating">
-                                            @for($i = 1; $i <= 5; $i++)
-                                            @if($i <= $course->reviews()->avg('rating'))
-                                            <i class="fas fa-star"></i>
-                                            @else
-                                            <i class="far fa-star"></i>
-                                            @endif  
-                                               
-                                            @endfor
-                                            
-                                            <span>({{ number_format($course->reviews()->avg('rating'), 2) ?? 0 }} Rating)</span>
-                                        </p>
-                                    </div>
+                                     
     
                                     <a class="title" href="{{ localizedRoute('courses.show', $course->translated_slug) }}">{{ $course->translated_title }}</a>
                                     <ul>
-                                        <li>{{ $course->lessons()->count() }} Lessons</li>
-                                        <li>{{ $course->enrollments()->count() }} Student</li>
+                                        <li>{{ $course->lessons()->count() }} {{ __('Lessons') }}</li>
+                                        <li>{{ $course->enrollments()->count() }} {{ __('Student') }}</li>
                                     </ul>
                                     <a class="author" href="#">
                                         <div class="img">
@@ -193,16 +146,8 @@
                                         <h4>{{ $course->instructor->name }}</h4>
                                     </a>
                                 </div>
-                                <div class="wsus__single_courses_3_footer">
-                                    <a class="common_btn add_to_cart" href="#" data-course-id="{{ $course->id }}">Enroll<i class="far fa-arrow-right"></i></a>
-                                    <p>
-                                        @if($course->discount > 0)
-                                        <del>${{ $course->price }}</del> ${{ $course->discount }}
-                                        @else
-                                        ${{ $course->price }}
-                                        @endif
-                                    </p>
-                                </div>
+                                 
+                                 
                             </div>
                         </div>
                         @empty

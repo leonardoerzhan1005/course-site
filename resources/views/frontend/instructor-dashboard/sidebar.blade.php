@@ -64,7 +64,7 @@
                     </div>
                     Sign Out
                 </a>
-                <form method="POST" id="logout" action="{{ route('logout') }}">
+                <form method="POST" id="logout" action="{{ route('logout', ['locale' => app()->getLocale()]) }}">
                     @csrf
                 </form>
             </li>

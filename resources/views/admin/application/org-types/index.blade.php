@@ -5,7 +5,7 @@
         <div class="container-xl">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Institution Categories</h3>
+                    <h3 class="card-title">{{__('Institution Categories')}}</h3>
                     <div class="card-actions">
                         <a href="{{ route('admin.application-org-types.create', ['locale' => app()->getLocale()]) }}" class="btn btn-primary">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -13,7 +13,7 @@
                                 <path d="M12 5l0 14"></path>
                                 <path d="M5 12l14 0"></path>
                             </svg>
-                            Add new
+                            {{__('Add new')}}
                         </a>
                     </div>
                 </div>
@@ -22,9 +22,9 @@
                         <table class="table table-vcenter card-table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Action</th>
+                                    <th>{{__('Name')}}</th>
+                                    <th>{{__('Slug')}}</th>
+                                    <th>{{__('Action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,7 +43,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="3" class="text-center">No Data Found!</td>
+                                        <td colspan="3" class="text-center">{{__('No Data Found!')}}</td>
                                     </tr>
                                 @endforelse
                             </tbody>

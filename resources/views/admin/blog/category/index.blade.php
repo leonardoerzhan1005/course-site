@@ -18,35 +18,71 @@
                         <table class="table table-vcenter card-table">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Slug</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>{{__('Name')}} ({{ app()->getLocale() }})</th>
+                                    <th>{{__('Translations')}}</th>
+                                    <th>{{__('Blogs Count')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th>{{__('Action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($categories as $category)
                                     <tr>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <strong>{{ $category->name }}</strong>
+                                                @if($category->slug)
+                                                    <small class="text-muted ms-2">({{ $category->slug }})</small>
+                                                @endif
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex gap-1">
+                                                @foreach(['ru', 'kk', 'en'] as $lang)
+                                                    @php
+                                                        $translation = $category->translations->where('locale', $lang)->first();
+                                                    @endphp
+                                                    @if($translation)
+                                                        <span class="badge bg-blue text-blue-fg" title="{{ $translation->name }}">
+                                                            {{ strtoupper($lang) }}
+                                                        </span>
+                                                    @else
+                                                        <span class="badge bg-secondary text-secondary-fg" title="No translation">
+                                                            {{ strtoupper($lang) }}
+                                                        </span>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-green text-green-fg">
+                                                {{ $category->blogs_count ?? 0 }}
+                                            </span>
+                                        </td>
                                         <td>
                                             @if ($category->status == 1)
-                                               <span class="badge bg-lime text-lime-fg">Active</span> 
+                                               <span class="badge bg-lime text-lime-fg">{{__('Active')}}</span> 
                                             @else 
-                                               <span class="badge bg-red text-red-fg">Inactive</span> 
+                                               <span class="badge bg-red text-red-fg">{{__('Inactive')}}</span> 
                                             @endif
                                         </td>
                                         <td>
-                                           
-                                            <a href="{{ route('admin.blog-categories.edit', ['locale' => app()->getLocale(), 'blog_category' => $category->id]) }}"
-                                                class="btn-sm btn-primary">
-                                                <i class="ti ti-edit"></i>
-                                            </a>
-                                            
-                                            <a href="{{ route('admin.blog-categories.destroy', ['locale' => app()->getLocale(), 'blog_category' => $category->id]) }}"
-                                                class="text-red delete-item">
-                                                <i class="ti ti-trash-x"></i>
-                                            </a>
+                                            <div class="btn-group" role="group">
+                                                <a href="{{ route('admin.blog-categories.edit', ['locale' => app()->getLocale(), 'blog_category' => $category->id]) }}"
+                                                    class="btn btn-sm btn-primary" title="{{__('Edit')}}">
+                                                    <i class="ti ti-edit"></i>
+                                                </a>
+                                                
+                                                <a href="{{ route('admin.blogs.index', ['locale' => app()->getLocale(), 'category' => $category->id]) }}"
+                                                    class="btn btn-sm btn-info" title="{{__('View Blogs')}}">
+                                                    <i class="ti ti-eye"></i>
+                                                </a>
+                                                
+                                                <a href="{{ route('admin.blog-categories.destroy', ['locale' => app()->getLocale(), 'blog_category' => $category->id]) }}"
+                                                    class="btn btn-sm btn-danger delete-item" title="{{__('Delete')}}">
+                                                    <i class="ti ti-trash-x"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty

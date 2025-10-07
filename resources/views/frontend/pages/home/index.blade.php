@@ -52,7 +52,7 @@
     <!--===========================
         OFFER START
     ============================-->
-    @include('frontend.pages.home.sections.offer-section')
+    <!-- @include('frontend.pages.home.sections.offer-section') -->
     <!--===========================
         OFFER END
     ============================-->

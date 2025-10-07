@@ -13,7 +13,7 @@
         @forelse($blogs as $blog)
             <div class="col-xl-6 wow fadeInUp">
                 <div class="wsus__single_blog_4">
-                    <a href="{{ route('blog.show',['locale' => request()->route('locale'), 'slug' => $blog->slug]) }}" class="wsus__single_blog_4_img">
+                    <a href="{{ route('blog.show',['locale' => request()->route('locale'), 'slug' => $blog->translated_slug]) }}" class="wsus__single_blog_4_img">
                         <img src="{{ asset($blog->image) }}" alt="Blog" class="img-fluid">
                         <span class="date">{{ date('M d, Y', strtotime($blog->created_at)) }}</span>
                     </a>
@@ -30,9 +30,9 @@
                                 {{ $blog->comments()->count() }} {{__('Comments')}}
                             </li>
                         </ul>
-                        <a href="{{ route('blog.show',['locale' => request()->route('locale'), 'slug' => $blog->slug]) }}" class="title">{{ $blog->title }}</a>
-                        <p>{{ Str::limit(strip_tags($blog->description), 120) }}</p>
-                        <a href="{{ route('blog.show',['locale' => request()->route('locale'), 'slug' => $blog->slug]) }}" class="common_btn">{{__('Read More')}} <i
+                        <a href="{{ route('blog.show',['locale' => request()->route('locale'), 'slug' => $blog->translated_slug]) }}" class="title">{{ $blog->translated_title }}</a>
+                        <p>{{ Str::limit(strip_tags($blog->translated_description), 120) }}</p>
+                        <a href="{{ route('blog.show',['locale' => request()->route('locale'), 'slug' => $blog->translated_slug]) }}" class="common_btn">{{__('Read More')}} <i
                                 class="far fa-arrow-right"></i></a>
                     </div>
                 </div>

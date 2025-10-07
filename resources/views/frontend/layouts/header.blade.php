@@ -2,6 +2,7 @@
        $topbar = \App\Models\TopBar::first();
        $categories = \App\Models\CourseCategory::whereNull('parent_id')->where('status', 1)->get();
        $customPages = \App\Models\CustomPage::where('status', 1)->where('show_at_nav', 1)->get();
+       $locale = app()->getLocale();
    @endphp
    
    <!-- Тест JSON локализации -->
@@ -12,26 +13,7 @@
      <!--===========================
           HEADER START
      ============================-->
-   <header class="header_3">
-       <div class="row">
-           <div class="col-xxl-4 col-lg-7 col-md-8 d-none d-md-block">
-               <ul class="wsus__header_left d-flex flex-wrap">
-                   <li><a href="mailto:{{ $topbar?->email }}"><i class="fas fa-envelope"></i> {{ $topbar?->email }}</a></li>
-                   <li><a href="callto:{{ $topbar?->phone }}"><i class="fas fa-phone-alt"></i> {{ $topbar?->phone }}</a>
-                   </li>
-               </ul>
-           </div>
-           <div class="col-xxl-5 col-lg-7 d-none d-xxl-block">
-               <div class="wsus__header_center">
-                   <p> <span>{{ $topbar?->offer_name }}</span> {{ $topbar?->offer_short_description }} <a
-                           href="{{ $topbar?->offer_button_url }}">{{ $topbar?->offer_button_text }}</a></p>
-               </div>
-           </div>
-           <div class="col-xxl-3 col-lg-5 col-md-4">
-
-           </div>
-       </div>
-   </header>
+ 
    <!--===========================
         HEADER END
     ============================-->
@@ -40,15 +22,16 @@
    <!--===========================
         MAIN MENU 3 START
     ============================-->
-   <nav class="navbar navbar-expand-lg main_menu main_menu_3">
+   <nav class="navbar navbar-expand-lg main_menu main_menu_5">
        <a class="navbar-brand" href="{{ url('/') }}">
-           <img src="{{ asset(config('settings.site_logo')) }}" alt="EduCore" class="img-fluid">
+           <img src="{{ asset(config('settings.site_logo')) }}" alt="ipk" class="img-fluid">
        </a>
        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
            <span class="navbar-toggler-icon"></span>
        </button>
        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            {{-- 
            <div class="menu_category">
                <div class="icon">
                    <img src="{{ asset('frontend/assets/images/grid_icon.png') }}" alt="Category" class="img-fluid">
@@ -78,6 +61,7 @@
 
                </ul>
            </div>
+           --}}
            <ul class="navbar-nav m-auto">
                <li class="nav-item">
                    <a class="nav-link active" href="{{ url('/') }}">{{__('Home')}}</a>
@@ -91,14 +75,21 @@
                <li class="nav-item">
                    <a class="nav-link" href="{{ localizedRoute('courses.index') }}">{{__('Courses')}}</a>
                </li>
+
+         {{--
                <li class="nav-item">
                    <a class="nav-link" href="{{ localizedRoute('about.index') }}">{{__('About')}}</a>
                </li>
+         --}}
+
                <li class="nav-item">
                    <a class="nav-link" href="{{ localizedRoute('documents') }}">{{__('Documents')}}</a>
                </li>
                <li class="nav-item">
-                   <a class="nav-link" href="{{ localizedRoute('blog.index') }}">{{__('Blogs')}}</a>
+                   <a class="nav-link" href="{{ localizedRoute('blog.index') }}">{{__('News')}}</a>
+               </li>
+               <li class="nav-item">
+                   <a class="nav-link" href="{{ localizedRoute('certificates') }}">{{__('Certificates')}}</a>
                </li>
 
                <li class="nav-item">
@@ -110,7 +101,21 @@
                    </li>
                @endforeach
            </ul>
+           <ul class="navbar-nav m-auto">
+           <li class="nav-item d-flex align-items-center p-50 m-50 style="margin-left: 10px;">
+                       <select id="locale-switcher" class="form-select">
+                           <option  value="ru"  {{ app()->getLocale() === 'ru' ? 'selected' : '' }}>Рус</option>
+                           <option value="kk" {{ app()->getLocale() === 'kk' ? 'selected' : '' }}>Қаз</option>
+                           <option value="en" {{ app()->getLocale() === 'en' ? 'selected' : '' }}>Eng</option>
+                       </select>
+                   </li>
 
+
+ 
+           </ul>
+
+
+           
            <div class="right_menu">
                @if(config('feature.cart_enabled'))
                <div class="menu_search_btn">
@@ -130,15 +135,18 @@
 
                    <li>
                     @if(!auth()->guard('web')->check())
-                       <a class="common_btn" href="{{ route('login') }}">Sign in</a>
+                       <a class="common_btn" href="{{ route('login', ['locale' => app()->getLocale()]) }}">{{__('Sign in')}}</a>
                     @endif
                     @if(user()?->role == 'student')
-                        <a class="common_btn" href="{{ route('student.dashboard') }}">Dashboard</a>
+                        <a class="common_btn" href="{{ route('student.dashboard') }}">{{__('Dashboard')}}</a>
                     @endif
                     @if(user()?->role == 'instructor')
-                        <a class="common_btn" href="{{ route('instructor.dashboard') }}">Dashboard</a>
+                        <a class="common_btn" href="{{ route('instructor.dashboard') }}">{{__('Dashboard')}}</a>
                     @endif
                    </li>
+
+                   
+
                </ul>
            </div>
 
@@ -180,7 +188,7 @@
                    <li><a href="{{ localizedRoute('cart.index') }}"><i class="far fa-shopping-basket"></i> <span class="cart_count">{{ cartCount() }}</span></a>
                    </li>
                    @endif
-                   <li><a href="{{ route('login') }}"><i class="far fa-user"></i></a></li>
+                   <li><a href="{{ route('login', ['locale' => app()->getLocale()]) }}"><i class="far fa-user"></i></a></li>
                </ul>
 
                <form class="mobile_menu_search" action="{{ localizedRoute('courses.index') }}">
@@ -204,20 +212,20 @@
                            aria-labelledby="nav-home-tab" tabindex="0">
                            <ul class="main_mobile_menu">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ url('/') }}">Home</a>
+                                <a class="nav-link active" href="{{ url('/') }}">{{__('Home')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ localizedRoute('courses.index') }}">Courses</a>
+                                <a class="nav-link" href="{{ localizedRoute('courses.index') }}">{{__('Courses')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ localizedRoute('about.index') }}">About</a>
+                                <a class="nav-link" href="{{ localizedRoute('about.index') }}">{{__('About')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ localizedRoute('blog.index') }}">Blogs</a>
+                                <a class="nav-link" href="{{ localizedRoute('blog.index') }}">{{__('Blogs')}}</a>
                             </li>
              
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ localizedRoute('contact.index') }}">contact us</a>
+                                <a class="nav-link" href="{{ localizedRoute('contact.index') }}">{{__('contact us')}}</a>
                             </li>
                             @foreach ($customPages as $page)
                                 <li class="nav-item">
@@ -285,3 +293,64 @@
    <!--============================
         MOBILE MENU END
     ==============================-->
+
+
+<style>
+ #locale-switcher.form-select{
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  min-width:110px !important; 
+  
+  padding:0.375rem 2rem !important; padding-right:2rem !important;
+  border-radius:999px; border:1px solid rgba(0,0,0,.175);
+  background-color: var(--bs-body-bg, #fff);
+  color: var(--bs-body-color, #212529);
+  background-image: var(--bs-form-select-bg-img);        /* одна стрелка */
+  background-position: right .65rem center; background-size:16px 12px;
+}
+#locale-switcher.form-select:focus{
+  outline:0; border-color: rgba(13,110,253,.55);
+  box-shadow: 0 0 0 .25rem rgba(13,110,253,.25);
+}
+</style>
+
+
+@push('scripts')
+<script>
+  $(function(){
+    var $sel = $('#locale-switcher');
+    if ($.fn.niceSelect) { $sel.niceSelect(); }
+    $sel.on('change', function(){
+      try {
+        var url = new URL(window.location.href);
+        var parts = url.pathname.split('/');
+        // ['', 'ru', 'path', ...] → индекс 1 — локаль
+        if (parts.length > 1 && /^(en|ru|kk)$/.test(parts[1])) {
+          parts[1] = this.value;
+        } else {
+          // если локали нет, добавим
+          parts.splice(1, 0, this.value);
+        }
+        url.pathname = parts.join('/').replace(/\/\/+/, '/');
+        window.location.href = url.toString();
+      } catch (e) {
+        // Фолбэк
+        var path = window.location.pathname.replace(/^\/(en|ru|kk)(?=\/|$)/, '/' + this.value);
+        if (!/^\/(en|ru|kk)(?=\/|$)/.test(window.location.pathname)) {
+          path = '/' + this.value + (window.location.pathname.startsWith('/') ? '' : '/') + window.location.pathname;
+        }
+        window.location.href = path + window.location.search + window.location.hash;
+      }
+    });
+  });
+  // вместо $('select').niceSelect();
+  $(function () {
+  if ($('#locale-switcher').next('.nice-select').length) {
+    $('#locale-switcher').niceSelect('destroy'); // вернёт нативный <select>
+  }
+  // курсор-«рука» для нативного селекта
+  $('#locale-switcher').css('cursor','pointer');
+});
+
+$('select').not('.no-nice-select, #locale-switcher').niceSelect();
+  </script>
+@endpush

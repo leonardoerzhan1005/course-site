@@ -14,26 +14,58 @@ class BlogController extends Controller
     //
     function index(Request $request) : View
     {
-        $blogs = Blog::where('status', 1)
-        ->when($request->filled('search'), function ($query) use ($request) {
-            $query->where('title', 'like', '%' . $request->search . '%')
-            ->orWhere('description', 'like', '%' . $request->search . '%');
+        $locale = app()->getLocale();
+        $blogs = Blog::with(['author', 'translations', 'category.translations'])
+        ->where('status', 1)
+        ->when($request->filled('search'), function ($query) use ($request, $locale) {
+            $query->whereHas('translations', function($q) use ($request, $locale) {
+                $q->where('locale', $locale)
+                  ->where(function($qq) use ($request) {
+                      $qq->where('title', 'like', '%' . $request->search . '%')
+                         ->orWhere('description', 'like', '%' . $request->search . '%');
+                  });
+            });
         })
-        ->when($request->filled('category'), function ($query) use ($request) {
+        ->when($request->filled('category'), function ($query) use ($request, $locale) {
             $slug = $request->category;
-            $query->whereHas('category', function ($q) use ($slug) {
-                $q->where('slug', $slug);
+            $query->whereHas('category.translations', function ($q) use ($slug, $locale) {
+                $q->where('locale', $locale)->where('slug', $slug);
             });
         })
         ->paginate(20);
-        return view('frontend.pages.blog', compact('blogs'));     
+        
+        // Получаем категории для фильтрации
+        $blogCategories = BlogCategory::with('translations')
+            ->withCount('blogs')
+            ->where('status', 1)
+            ->get();
+        
+        return view('frontend.pages.blog', compact('blogs', 'blogCategories'));     
     }
 
     function show(string $locale, string $slug) : View
     {
-        $blog = Blog::with(['author', 'category', 'comments'])->where('slug', $slug)->where('status', 1)->firstOrFail();
-        $recentBlogs = Blog::where('status', 1)->where('slug', '!=', $slug)->latest()->take(3)->get();
-        $blogCategories = BlogCategory::withCount('blogs')->where('status', 1)->get();
+        $blog = Blog::with(['author', 'category.translations', 'comments', 'translations'])
+            ->whereHas('translations', function($t) use ($slug, $locale) {
+                $t->where('locale', $locale)->where('slug', $slug);
+            })
+            ->where('status', 1)
+            ->firstOrFail();
+            
+        $recentBlogs = Blog::with(['translations'])
+            ->where('status', 1)
+            ->where('id', '!=', $blog->id)
+            ->whereHas('translations', function($t) use ($locale) {
+                $t->where('locale', $locale);
+            })
+            ->latest()
+            ->take(3)
+            ->get();
+            
+        $blogCategories = BlogCategory::with(['translations'])
+            ->withCount('blogs')
+            ->where('status', 1)
+            ->get();
         
         return view('frontend.pages.blog-detail', compact('blog', 'recentBlogs', 'blogCategories'));     
     }

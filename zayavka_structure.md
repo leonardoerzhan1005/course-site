@@ -1021,3 +1021,12 @@ document.getElementById('unemployed').addEventListener('change', e => {
 - Курсы опционально связаны с факультетом/спец-тью (фильтрация не обязательна).
 - Язык прохождения курса — отдельный справочник (`course_languages`).
 
+
+
+    brew install imagemagick
+    pecl install imagick
+    echo "extension=imagick.so" | sudo tee -a $(php -r "echo php_ini_loaded_file();")
+    sudo apachectl restart  # или перезапустить php-fpm, если нужно
+
+
+        brew install imagemagick

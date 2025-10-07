@@ -38,15 +38,15 @@
                         </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <a href="{{ route('admin.dashboard', ['locale' => 'en']) }}" class="dropdown-item">
+                        <a href="{{ str_replace('/' . app()->getLocale() . '/', '/en/', request()->getRequestUri()) }}" class="dropdown-item">
                             <span class="flag flag-country-gb me-2"></span>
                             English
                         </a>
-                        <a href="{{ route('admin.dashboard', ['locale' => 'ru']) }}" class="dropdown-item">
+                        <a href="{{ str_replace('/' . app()->getLocale() . '/', '/ru/', request()->getRequestUri()) }}" class="dropdown-item">
                             <span class="flag flag-country-ru me-2"></span>
                             Русский
                         </a>
-                        <a href="{{ route('admin.dashboard', ['locale' => 'kk']) }}" class="dropdown-item">
+                        <a href="{{ str_replace('/' . app()->getLocale() . '/', '/kk/', request()->getRequestUri()) }}" class="dropdown-item">
                             <span class="flag flag-country-kz me-2"></span>
                             Қазақша
                         </a>

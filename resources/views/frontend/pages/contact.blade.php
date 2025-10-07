@@ -3,12 +3,14 @@
 
 @section('content')
     <!-- Hero (blue) -->
-    <section style="background:#1E3A8A;color:#fff;padding:60px 0;margin-top:100px;">
-        <div class="container">
+    <section  class="wsus__breadcrumb course_details_breadcrumb" >
+    <div class="wsus__breadcrumb_overlay">    
+    <div class="container">
             <h1 class="fw-bold mb-2">{{ __('Contact') }}</h1>
             <p class="mb-0" style="opacity:.95;max-width:900px;">
                 {{ __('Connect with the Institute for Advanced Training and Continuing Education') }}
             </p>
+        </div>
         </div>
     </section>
 

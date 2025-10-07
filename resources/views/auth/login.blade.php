@@ -8,9 +8,9 @@
         <div class="row align-items-center">
             <div class="col-xxl-5 col-xl-6 col-lg-6 wow fadeInLeft">
                 <div class="wsus__sign_img">
-                    <img src="{{ asset('frontend/assets/images/login_img_1.jpg') }}" alt="login" class="img-fluid">
+                     
                     <a href="index.html">
-                        <img src="{{ asset('frontend/assets/images/logo.png') }}" alt="EduCore" class="img-fluid">
+                         
                     </a>
                 </div>
             </div>
@@ -19,14 +19,14 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab" tabindex="0">
-                            <form action="{{ route('login') }}" method="POST">
+                            <form action="{{ route('login', ['locale' => app()->getLocale()]) }}" method="POST">
                                 @csrf
-                                <h2>Log in<span>!</span></h2>
-                                <p class="new_user">Welcome Back, please provide your cradentials for login</p>
+                                <h2>{{__('Log in')}}<span>!</span></h2>
+                                <p class="new_user">{{__('Welcome Back, please provide your cradentials for login')}}</p>
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Email *</label>
+                                            <label>{{__('Email')}} *</label>
                                             <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
                                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
@@ -34,7 +34,7 @@
                                          
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Password* <a href="{{ route('password.request') }}">Forgot Password?</a></label>
+                                            <label>{{__('Password')}}* <a href="{{ route('password.request', ['locale' => app()->getLocale()]) }}">{{__('Forgot Password?')}}</a></label>
                                             <input type="password" name="password" required placeholder="Password">
                                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                         </div>
@@ -45,10 +45,10 @@
                                                 <input class="form-check-input" type="checkbox" name="remember"  value=""
                                                     id="flexCheckDefault">
                                                 <label class="form-check-label" for="flexCheckDefault">
-                                                    Remember Me
+                                                    {{__('Remember Me')}}
                                                 </label>
                                             </div>
-                                            <button type="submit" class="common_btn">Sign In</button>
+                                            <button type="submit" class="common_btn">{{__('Sign In')}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -62,14 +62,13 @@
                                     </a>
                                 </li>
                             </ul> --}}
-                            <p class="create_account">Don't have an account? <a href="{{ route('register') }}">Create free
-                                    account</a></p>
+                            <p class="create_account">{{__('Don\'t have an account?')}} <a href="{{ route('register', ['locale' => app()->getLocale()]) }}">{{__('Create free account')}}</a></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <a class="back_btn" href="index.html">Back to Home</a>
+        <a class="back_btn" href="{{ url('/') }}">{{__('Back to Home')}}</a>
     </section>
     <!--===========================
         SIGN IN END

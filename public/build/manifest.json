@@ -8,8 +8,13 @@
     "src": "resources/css/admin.css",
     "isEntry": true
   },
+  "resources/css/admin/tinymce-enhanced.css": {
+    "file": "assets/tinymce-enhanced-DlfbYYqA.css",
+    "src": "resources/css/admin/tinymce-enhanced.css",
+    "isEntry": true
+  },
   "resources/css/app.css": {
-    "file": "assets/app-l9fdTSoz.css",
+    "file": "assets/app-bAvpBHUf.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -19,12 +24,13 @@
     "isEntry": true
   },
   "resources/js/admin/admin.js": {
-    "file": "assets/admin-Btbhg9JC.js",
+    "file": "assets/admin-BrivNcH7.js",
     "name": "admin",
     "src": "resources/js/admin/admin.js",
     "isEntry": true,
     "imports": [
-      "_jquery-T8mbjkVg.js"
+      "_jquery-T8mbjkVg.js",
+      "resources/js/admin/image-handler.js"
     ]
   },
   "resources/js/admin/course.js": {
@@ -36,6 +42,12 @@
       "_jquery-T8mbjkVg.js"
     ]
   },
+  "resources/js/admin/image-handler.js": {
+    "file": "assets/image-handler-CYgE8k4a.js",
+    "name": "image-handler",
+    "src": "resources/js/admin/image-handler.js",
+    "isEntry": true
+  },
   "resources/js/admin/login.js": {
     "file": "assets/login-BVyPtBik.js",
     "name": "login",
@@ -44,6 +56,12 @@
     "imports": [
       "_jquery-T8mbjkVg.js"
     ]
+  },
+  "resources/js/admin/tinymce-enhanced.js": {
+    "file": "assets/tinymce-enhanced-B-BXmrd3.js",
+    "name": "tinymce-enhanced",
+    "src": "resources/js/admin/tinymce-enhanced.js",
+    "isEntry": true
   },
   "resources/js/app.js": {
     "file": "assets/app-DlYOw6CL.js",

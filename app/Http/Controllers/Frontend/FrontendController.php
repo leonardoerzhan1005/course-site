@@ -43,7 +43,7 @@ class FrontendController extends Controller
       $brands = Brand::where('status', 1)->get();
       $featuredInstructor = FeaturedInstructor::first();
       $featuredInstructorCourses = Course::whereIn('id', json_decode($featuredInstructor?->featured_courses ?? '[]'))->get();
-      $testimonials = Testimonial::all();
+      $testimonials = Testimonial::with('translations')->get();
       $blogs = Blog::where('status', 1)->latest()->limit(3)->get();
      
     return view('frontend.pages.home.index', compact(
@@ -69,7 +69,7 @@ class FrontendController extends Controller
    {
       $about = AboutUsSection::first();
       $counter = Counter::first();
-      $testimonials = Testimonial::all();
+      $testimonials = Testimonial::with('translations')->get();
       $blogs = Blog::where('status', 1)->latest()->limit(8)->get();
 
       return view('frontend.pages.about', compact('about', 'counter', 'testimonials', 'blogs'));
@@ -160,6 +160,7 @@ class FrontendController extends Controller
           'faculty_id'              => ['nullable', 'exists:application_faculties,id'],
           'specialty_id'            => ['nullable', 'exists:application_specialties,id'],
           'course_id'               => ['nullable', 'exists:courses,id'],
+          'custom_course_name'      => ['nullable', 'string', 'max:1000'],
 
           'course_language_id'      => ['required', 'exists:application_course_languages,id'],
 
@@ -186,10 +187,36 @@ class FrontendController extends Controller
 
       $data = $request->all();
 
+      // Заполняем ФИО для остальных языков, если БД требует NOT NULL
+      $currentLocale = $locale; // уже определён выше
+      $locales = ['ru','kk','en'];
+      foreach ($locales as $lc) {
+          // Фамилия
+          $lnKey = "last_name_{$lc}";
+          if (!isset($data[$lnKey]) || $data[$lnKey] === null || $data[$lnKey] === '') {
+              $data[$lnKey] = $data["last_name_{$currentLocale}"] ?? '';
+          }
+          // Имя
+          $fnKey = "first_name_{$lc}";
+          if (!isset($data[$fnKey]) || $data[$fnKey] === null || $data[$fnKey] === '') {
+              $data[$fnKey] = $data["first_name_{$currentLocale}"] ?? '';
+          }
+          // Отчество
+          $mnKey = "middle_name_{$lc}";
+          if (!isset($data[$mnKey]) || $data[$mnKey] === null) {
+              $data[$mnKey] = '';
+          }
+      }
+
       // Если отмечено "Не работаю" — очищаем workplace/org_type_id
       if (!empty($data['is_unemployed'])) {
           $data['workplace'] = null;
           $data['org_type_id'] = null;
+      }
+
+      // Обработка курсов - если выбран курс из списка, очищаем кастомный
+      if (!empty($data['course_id'])) {
+          $data['custom_course_name'] = null;
       }
 
       // НЕ копируем ФИО автоматически - пользователь сам решает, что заполнять

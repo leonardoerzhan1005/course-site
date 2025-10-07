@@ -21,7 +21,32 @@
         @foreach($supportedLocales as $locale)
             @if($locale !== $currentLocale)
                 <li>
-                    <a class="dropdown-item" href="{{ route('home', ['locale' => $locale]) }}">
+                    @php
+                        $targetUrl = null;
+                        $route = request()->route();
+                        if ($route && $route->getName()) {
+                            $params = request()->route()->parameters();
+                            $params['locale'] = $locale;
+                            $targetUrl = route($route->getName(), $params);
+                            // сохраняем query string
+                            if (request()->getQueryString()) {
+                                $targetUrl .= '?' . request()->getQueryString();
+                            }
+                        } else {
+                            // Фолбэк: заменить первый сегмент (локаль) в текущем пути
+                            $path = request()->path();
+                            $segments = explode('/', $path);
+                            if (!empty($segments)) {
+                                $segments[0] = $locale;
+                            }
+                            $newPath = implode('/', $segments);
+                            $targetUrl = url($newPath);
+                            if (request()->getQueryString()) {
+                                $targetUrl .= '?' . request()->getQueryString();
+                            }
+                        }
+                    @endphp
+                    <a class="dropdown-item" href="{{ $targetUrl }}">
                         {{ $localeFlags[$locale] ?? '🌐' }} {{ $localeNames[$locale] ?? strtoupper($locale) }}
                     </a>
                 </li>

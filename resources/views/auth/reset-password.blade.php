@@ -21,10 +21,10 @@
                             aria-labelledby="pills-home-tab" tabindex="0">
                             <x-auth-session-status class="mb-4" :status="session('status')" />
 
-                            <form action="{{ route('password.store') }}" method="POST">
+                            <form action="{{ route('password.store', ['locale' => app()->getLocale()]) }}" method="POST">
                                 @csrf
-                                <h2>Reset Password<span>!</span></h2>
-                                <p class="new_user">Welcome Back, please provide your credentials for login</p>
+                                <h2>{{__('Reset Password')}}<span>!</span></h2>
+                                <p class="new_user">{{__('Welcome Back, please provide your credentials for login')}}</p>
 
                                 <!-- Password Reset Token -->
                                 <input type="hidden" name="token" value="{{ $request->route('token') }}">
@@ -32,31 +32,31 @@
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Email *</label>
+                                            <label>{{__('Email')}} *</label>
                                             <input type="email" name="email" value="{{ old('email', $request->email) }}"
                                                 placeholder="Email" required>
-                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                            <x-input-error :messages="$errors->get('email', 'email')" class="mt-2" />
                                         </div>
                                     </div>
 
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Password *</label>
+                                            <label>{{__('Password')}} *</label>
                                             <input type="password" name="password" required placeholder="Password">
-                                            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                                            <x-input-error :messages="$errors->get('password', 'password')" class="mt-2" />
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <label>Confirm Password *</label>
+                                            <label>{{__('Confirm Password')}} *</label>
                                             <input type="password" name="password_confirmation" required placeholder="Password">
-                                            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                                            <x-input-error :messages="$errors->get('password_confirmation', 'password_confirmation')" class="mt-2" />
                                         </div>
                                     </div>
 
                                     <div class="col-xl-12">
                                         <div class="wsus__login_form_input">
-                                            <button type="submit" class="common_btn">Reset Password</button>
+                                            <button type="submit" class="common_btn">{{__('Reset Password')}}</button>
                                         </div>
                                     </div>
                                 </div>

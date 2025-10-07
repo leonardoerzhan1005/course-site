@@ -3,7 +3,7 @@
 @section('tab_content')
 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
     <div class="add_course_basic_info">
-        <form action="{{ route('admin.courses.sore-basic-info', ['locale' => app()->getLocale()]) }}" method="post" class="basic_info_update_form course-form" enctype="multipart/form-data">
+        <form action="{{ route('admin.courses.update', ['locale' => app()->getLocale()]) }}" method="post" class="basic_info_update_form course-form" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{ $course->id }}">
             <input type="hidden" name="current_step" value="1">
@@ -12,13 +12,13 @@
                 <div class="col-xl-12">
                     <div class="add_course_basic_info_imput">
                         <label for="#">Title *</label>
-                        <input type="text" placeholder="Title" name="title" value="{{ $course->title }}">
+                        <input type="text" placeholder="Title" name="title" value="{{ $course->translated_title ?? $course->title }}">
                     </div>
                 </div>
                 <div class="col-xl-12">
                     <div class="add_course_basic_info_imput">
                         <label for="#">Seo description</label>
-                        <input type="text" placeholder="Seo description" name="seo_description" value="{{ $course->seo_description }}">
+                        <input type="text" placeholder="Seo description" name="seo_description" value="{{ $course->translated_seo_description ?? $course->seo_description }}">
                     </div>
                 </div>
                 <div class="col-xl-12">
@@ -75,7 +75,7 @@
                 <div class="col-xl-12">
                     <div class="add_course_basic_info_imput mb-0">
                         <label for="#">Description</label>
-                        <textarea rows="8" placeholder="Description" name="description" class="editor">{!! $course->description !!}</textarea>
+                        <textarea rows="8" placeholder="Description" name="description" class="editor">{!! $course->translated_description ?? $course->description !!}</textarea>
                         <button type="submit" class="common_btn btn btn-primary mt-3">Save</button>
                     </div>
                 </div>

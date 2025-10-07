@@ -5,11 +5,11 @@
         <div class="container-xl">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Course Categories</h3>
+                    <h3 class="card-title">{{__('Course Categories')}}</h3>
                     <div class="card-actions">
                         <a href="{{ route('admin.course-categories.create', ['locale' => app()->getLocale()]) }}" class="btn btn-primary">
                             <i class="ti ti-plus"></i>
-                            Add new
+                            {{__('Add new')}}
                         </a>
                     </div>
                 </div>
@@ -18,11 +18,11 @@
                         <table class="table table-vcenter card-table">
                             <thead>
                                 <tr>
-                                    <th>Icon</th>
-                                    <th>Name</th>
-                                    <th>Treading</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>{{__('Icon')}}</th>
+                                    <th>{{__('Name')}}</th>
+                                    <th>{{__('Treading')}}</th>
+                                    <th>{{__('Status')}}</th>
+                                    <th>{{__('Action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,16 +32,16 @@
                                         <td>{{ $category->name }}</td>
                                         <td>
                                             @if ($category->show_at_trending == 1)
-                                               <span class="badge bg-lime text-lime-fg">Yes</span> 
+                                               <span class="badge bg-lime text-lime-fg">{{__('Yes')}}</span> 
                                             @else 
-                                               <span class="badge bg-red text-red-fg">No</span> 
+                                               <span class="badge bg-red text-red-fg">{{__('No')}}</span> 
                                             @endif
                                         </td>
                                         <td>
                                             @if ($category->status == 1)
-                                               <span class="badge bg-lime text-lime-fg">Yes</span> 
+                                               <span class="badge bg-lime text-lime-fg">{{__('Yes')}}</span> 
                                             @else 
-                                               <span class="badge bg-red text-red-fg">No</span> 
+                                               <span class="badge bg-red text-red-fg">{{__('No')}}</span> 
                                             @endif
                                         </td>
                                         <td>
@@ -62,7 +62,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">No Data Found!</td>
+                                        <td colspan="5" class="text-center">{{__('No Data Found!')}}</td>
                                     </tr>
                                 @endforelse
                             </tbody>

@@ -3,14 +3,17 @@
 @section('content')
 <div class="services-page-content">
     <!-- Hero Section -->
-    <section class="services-hero py-5">
-        <div class="services-page-container">
+    <section class="wsus__breadcrumb course_details_breadcrumb">
+        <div class="wsus__breadcrumb_overlay" style="background-color:#B1B1B1;color:#fff;">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-8">
                     <h1 class="display-4 fw-bold mb-4">{{ __('Services') }}</h1>
                     <p class="lead mb-4">{{ __('Services') }}</p>
                 </div>
             </div>
+        </div>
+        </div>
         </div>
     </section>
 
@@ -294,7 +297,7 @@
   display: flex;
   align-items: flex-start;
   background: #fff;
-  border: 1px solid #e5e7eb;
+  border: 2px solid #B1B1B1;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   padding: 2rem;
@@ -303,6 +306,7 @@
 
 .service-card:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: 2px solid #1E3A8A;
 }
 
 /* Header inside card */

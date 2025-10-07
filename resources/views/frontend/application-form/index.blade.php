@@ -9,8 +9,8 @@
 <!-- ===========================
 BREADCRUMB
 =========================== -->
-<section class="breadcrumb" style="background: url({{ asset('frontend/img/breadcrumb_bg.jpg') }});">
-  <div class="breadcrumb__overlay">
+<section class="wsus__breadcrumb course_details_breadcrumb" >
+  <div class="wsus__breadcrumb_overlay"  style="background-color:gray;color:black;">
     <div class="container">
       <div class="breadcrumb__text">
         <h1 class="breadcrumb__title">{{ __('Application form') }}</h1>
@@ -31,7 +31,7 @@ APPLICATION FORM
     <div class="application__wrapper">
       <header class="application__header">
         <h2 class="application__title">{{ __('Application form') }}</h2>
-        <p class="application__subtitle">{{ __('Fill in all fields to submit an application for a course') }}</p>
+         
       </header>
 
       <!-- Language Switcher -->
@@ -63,7 +63,7 @@ APPLICATION FORM
         <section class="form__section">
           <h4 class="form__section-title">
             <i class="fas fa-user"></i>
-            {{ __('Personal data') }} ({{ strtoupper(app()->getLocale()) }})
+            {{ __('Personal data') }}  
           </h4>
           <div class="form__grid form__grid--3">
             <div class="form__group">
@@ -208,7 +208,7 @@ APPLICATION FORM
             <div class="form__group">
               <label class="form__label" for="faculty_id">{{ __('Course direction') }}</label>
               <select id="faculty_id" name="faculty_id"
-                      class="form__control @error('faculty_id') is-invalid @enderror">
+                      class="form__control no-nice-select @error('faculty_id') is-invalid @enderror">
                 <option value="">{{ __('Select direction') }}</option>
                 @if(isset($faculties) && $faculties && $faculties->count() > 0)
                   @foreach($faculties as $faculty)
@@ -228,8 +228,15 @@ APPLICATION FORM
             <div class="form__group">
               <label class="form__label" for="specialty_id">{{ __('Specialization') }}</label>
               <select id="specialty_id" name="specialty_id"
-                      class="form__control @error('specialty_id') is-invalid @enderror">
+                      class="form__control no-nice-select @error('specialty_id') is-invalid @enderror">
                 <option value="">{{ __('Select direction first') }}</option>
+                @if(isset($specialties) && $specialties && $specialties->count() > 0)
+                  @foreach($specialties as $specialty)
+                    <option value="{{ $specialty['id'] }}" {{ old('specialty_id') == $specialty['id'] ? 'selected' : '' }}>
+                      {{ $specialty['name'] }}
+                    </option>
+                  @endforeach
+                @endif
               </select>
               @error('specialty_id')
                 <div class="form__feedback">{{ $message }}</div>
@@ -264,7 +271,7 @@ APPLICATION FORM
               <div class="form__group">
                 <label class="form__label" for="org_type_id">{{ __('Institution category') }}</label>
                 <select id="org_type_id" name="org_type_id"
-                        class="form__control @error('org_type_id') is-invalid @enderror">
+                        class="form__control no-nice-select @error('org_type_id') is-invalid @enderror">
                   <option value="">{{ __('Select category') }}</option>
                   @if(isset($orgTypes) && $orgTypes && $orgTypes->count() > 0)
                     @foreach($orgTypes as $orgType)
@@ -284,7 +291,7 @@ APPLICATION FORM
           <div class="form__grid form__grid--2">
             <div class="form__group">
               <label class="form__label" for="country_id">{{ __('Country') }} *</label>
-              <select id="country_id" name="country_id" class="form__control @error('country_id') is-invalid @enderror" required>
+              <select id="country_id" name="country_id" class="form__control no-nice-select @error('country_id') is-invalid @enderror" required>
                 <option value="">{{ __('Select country') }}</option>
                 @if(isset($countries) && $countries && $countries->count() > 0)
                   @foreach($countries as $country)
@@ -302,7 +309,7 @@ APPLICATION FORM
             <div class="form__group">
               <label class="form__label" for="city_id">{{ __('City') }} *</label>
               <select id="city_id" name="city_id"
-                      class="form__control @error('city_id') is-invalid @enderror" required>
+                      class="form__control no-nice-select @error('city_id') is-invalid @enderror" required>
                 <option value="">{{ __('Select city') }}</option>
                 @if(isset($cities) && $cities && $cities->count() > 0)
                   @foreach($cities as $city)
@@ -331,10 +338,10 @@ APPLICATION FORM
 
           <div class="form__grid form__grid--2">
             <div class="form__group">
-              <label class="form__label" for="degree_id">{{ __('Учёная степень') }}</label>
+              <label class="form__label" for="degree_id">{{ __('Academic degree') }}</label>
               <select id="degree_id" name="degree_id"
                       class="form__control @error('degree_id') is-invalid @enderror">
-                <option value="">{{ __('Выберите степень') }}</option>
+                <option value="">{{ __('Select degree') }}</option>
                 @if(isset($degrees) && $degrees && $degrees->count() > 0)
                   @foreach($degrees as $degree)
                     <option value="{{ $degree['id'] }}" {{ old('degree_id') == $degree['id'] ? 'selected' : '' }}>
@@ -364,7 +371,7 @@ APPLICATION FORM
             <label class="form__label" for="subjects">{{ __('Taught subjects') }}</label>
             <textarea id="subjects" name="subjects"
                       class="form__control @error('subjects') is-invalid @enderror"
-                      placeholder="{{ __('Укажите преподаваемые предметы через запятую') }}"
+                      placeholder="{{ __('Enter taught subjects separated by commas') }}"
                       rows="3">{{ old('subjects') }}</textarea>
             <small class="form__hint">{{ __('For example: Mathematics, Physics, Chemistry') }}</small>
             @error('subjects')
@@ -384,7 +391,7 @@ APPLICATION FORM
             <div class="form__group">
               <label class="form__label" for="course_id">{{ __('Course for professional development') }}</label>
               <select id="course_id" name="course_id"
-                      class="form__control @error('course_id') is-invalid @enderror">
+                      class="form__control no-nice-select @error('course_id') is-invalid @enderror">
                 <option value="">{{ __('Select course') }}</option>
                 @if(isset($courses) && $courses && $courses->count() > 0)
                   @foreach($courses as $course)
@@ -397,12 +404,24 @@ APPLICATION FORM
               @error('course_id')
                 <div class="form__feedback">{{ $message }}</div>
               @enderror
+              
+              <!-- Поле для ввода курса вручную -->
+              <div class="form__group" style="margin-top: 1rem;">
+                <label class="form__label" for="custom_course_name">{{ __('Or enter your own course') }}</label>
+                <textarea id="custom_course_name" name="custom_course_name"
+                          class="form__control @error('custom_course_name') is-invalid @enderror"
+                          placeholder="{{ __('Enter course name if not found in the list above') }}"
+                          rows="2">{{ old('custom_course_name') }}</textarea>
+                @error('custom_course_name')
+                  <div class="form__feedback">{{ $message }}</div>
+                @enderror
+              </div>
             </div>
 
             <div class="form__group">
               <label class="form__label" for="course_language_id">{{ __('Course language') }} *</label>
               <select id="course_language_id" name="course_language_id"
-                      class="form__control @error('course_language_id') is-invalid @enderror" required>
+                      class="form__control no-nice-select @error('course_language_id') is-invalid @enderror" required>
                 <option value="">{{ __('Select language') }}</option>
                 @if(isset($courseLangs) && $courseLangs && $courseLangs->count() > 0)
                   @foreach($courseLangs as $language)
@@ -581,6 +600,27 @@ APPLICATION FORM
 /* === Декоративные мелочи === */
 hr{opacity:.07;}
 
+/* === Отключаем Nice Select для динамических полей === */
+#faculty_id, #specialty_id, #course_id, #country_id, #city_id, #org_type_id, #course_language_id {
+    display: block !important;
+}
+
+.nice-select {
+    display: none !important;
+}
+
+/* === Стилизуем нативные select'ы === */
+#faculty_id, #specialty_id, #course_id, #country_id, #city_id, #org_type_id, #course_language_id {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+}
+
  </style>
 
 <!-- JavaScript для динамических списков -->
@@ -607,60 +647,143 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Current locale:', currentLocale);
     
     // Поле "Вы иностранный гражданин?" - просто флаг true/false, не влияет на отображение полей
-
+    const locale = window.location.pathname.split('/')[1];
     // Динамическая загрузка специальностей при выборе факультета
     const facultySelect = document.getElementById('faculty_id');
     const specialtySelect = document.getElementById('specialty_id');
     const courseSelect = document.getElementById('course_id');
     const countrySelect = document.getElementById('country_id');
     const citySelect = document.getElementById('city_id');
+    const orgTypeSelect = document.getElementById('org_type_id');
+    const courseLanguageSelect = document.getElementById('course_language_id');
+
+    const oldFaculty    = "{{ old('faculty_id') }}";
+    const oldSpecialty  = "{{ old('specialty_id') }}";
+    const oldCourse     = "{{ old('course_id') }}";
+    const oldCountry    = "{{ old('country_id') }}";
+    const oldCity       = "{{ old('city_id') }}";
+    const oldOrgType    = "{{ old('org_type_id') }}";
+    const oldCourseLanguage = "{{ old('course_language_id') }}";
     
-    if (facultySelect && specialtySelect) {
-        facultySelect.addEventListener('change', function() {
-            const facultyId = this.value;
-            
-            // Очищаем специальности и курсы
-            specialtySelect.innerHTML = '<option value="">{{ __("Select direction first") }}</option>';
-            courseSelect.innerHTML = '<option value="">{{ __("Select direction first") }}</option>';
-            
-            if (facultyId) {
-                // Загружаем специальности для выбранного факультета
-                fetch(`/${window.location.pathname.split('/')[1]}/api/specialties?faculty_id=${facultyId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(item => {
-                            const option = document.createElement('option');
-                            option.value = item.id;
-                            option.textContent = item.name;
-                            specialtySelect.appendChild(option);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error loading specialties:', error);
-                    });
-            }
-        });
+
+    async function loadOptions(selectEl, url, placeholder, preselectId) {
+    selectEl.innerHTML = `<option value="">${placeholder}</option>`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      console.log('Loaded', url, data.length);
+      data.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = item.id;
+        opt.textContent = item.name;
+        if (preselectId && String(item.id) === String(preselectId)) {
+          opt.selected = true;
+        }
+        selectEl.appendChild(opt);
+      });
+    } catch (e) {
+      console.error('Load failed', url, e);
     }
+  }
+
+  async function loadSpecialties(facultyId, preselectSpecialtyId) {
+    await loadOptions(
+      specialtySelect,
+      `/${locale}/api/specialties?faculty_id=${facultyId}`,
+      "{{ __('Select specialization') }}",
+      preselectSpecialtyId
+    );
+  }
+
+  async function loadCourses(specialtyId, preselectCourseId) {
+    await loadOptions(
+      courseSelect,
+      `/${locale}/api/courses?specialty_id=${specialtyId}`,
+      "{{ __('Select course') }}",
+      preselectCourseId
+    );
+  }
+
+  async function loadCities(countryId, preselectCityId) {
+    await loadOptions(
+      citySelect,
+      `/${locale}/api/cities?country_id=${countryId}`,
+      "{{ __('Select city') }}",
+      preselectCityId
+    );
+  }
+
+  async function loadOrgTypes(preselectOrgTypeId) {
+    await loadOptions(
+      orgTypeSelect,
+      `/${locale}/api/org-types`,
+      "{{ __('Select category') }}",
+      preselectOrgTypeId
+    );
+  }
+
+  async function loadCourseLanguages(preselectCourseLanguageId) {
+    await loadOptions(
+      courseLanguageSelect,
+      `/${locale}/api/course-languages`,
+      "{{ __('Select language') }}",
+      preselectCourseLanguageId
+    );
+  }
+
+  if (facultySelect && specialtySelect) {
+    facultySelect.addEventListener('change', async function() {
+      const facultyId = this.value;
+      specialtySelect.innerHTML = `<option value="">{{ __('Select direction first') }}</option>`;
+      courseSelect.innerHTML    = `<option value="">{{ __('Select specialization first') }}</option>`;
+      if (facultyId) {
+        await loadSpecialties(facultyId, null);
+      }
+    });
+  }
+
+  if (specialtySelect && courseSelect) {
+    specialtySelect.addEventListener('change', async function() {
+      const specialtyId = this.value;
+      courseSelect.innerHTML = `<option value="">{{ __('Select specialization first') }}</option>`;
+      if (specialtyId) {
+        await loadCourses(specialtyId, null);
+      }
+    });
+  }
+
+  // Initial cascade for old() values
+  (async function initCascade() {
+    if (oldFaculty) {
+      facultySelect.value = oldFaculty;
+      await loadSpecialties(oldFaculty, oldSpecialty || null);
+      if (oldSpecialty) {
+        await loadCourses(oldSpecialty, oldCourse || null);
+      }
+    }
+    
+    if (oldCountry) {
+      countrySelect.value = oldCountry;
+      await loadCities(oldCountry, oldCity || null);
+    }
+    
+    // Загружаем типы организаций при инициализации
+    await loadOrgTypes(oldOrgType || null);
+    
+    // Загружаем языки курсов при инициализации
+    await loadCourseLanguages(oldCourseLanguage || null);
+  })();
+
+
+ 
 
     // Динамическая загрузка городов при выборе страны
     if (countrySelect && citySelect) {
-        countrySelect.addEventListener('change', function() {
+        countrySelect.addEventListener('change', async function() {
             const countryId = this.value;
             citySelect.innerHTML = '<option value="">{{ __("Select city") }}</option>';
             if (countryId) {
-                fetch(`/${window.location.pathname.split('/')[1]}/api/cities?country_id=${countryId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(item => {
-                            const option = document.createElement('option');
-                            option.value = item.id;
-                            option.textContent = item.name;
-                            citySelect.appendChild(option);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error loading cities:', error);
-                    });
+                await loadCities(countryId, null);
             }
         });
     }

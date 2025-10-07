@@ -26,6 +26,7 @@ class Application extends Model
         'faculty_id',
         'specialty_id',
         'course_id',
+        'custom_course_name',
         'course_language_id',
         'workplace',
         'org_type_id',
@@ -127,5 +128,15 @@ class Application extends Model
             'en' => $this->full_name_en ?? $this->full_name_ru,
             default => $this->full_name_ru,
         };
+    }
+
+    // Геттер для названия курса (из списка или кастомного)
+    public function getCourseNameAttribute(): ?string
+    {
+        if ($this->course_selection_type === 'custom') {
+            return $this->custom_course_name;
+        }
+        
+        return $this->course ? $this->course->translated_title ?? $this->course->title : null;
     }
 }
