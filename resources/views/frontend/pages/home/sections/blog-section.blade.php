@@ -13,7 +13,7 @@
         @forelse($blogs as $blog)
             <div class="col-xl-6 wow fadeInUp">
                 <div class="wsus__single_blog_4">
-                    <a href="{{ route('blog.show',['locale' => request()->route('locale'), 'slug' => $blog->translated_slug]) }}" class="wsus__single_blog_4_img">
+                    <a href="{{ route('blog.show',['locale' => request()->route('locale'), 'slug' => $blog->translated_slug]) }}" class="img-fluid w-100">
                         <img src="{{ asset($blog->image) }}" alt="Blog" class="img-fluid" style = "width: 100%; height: 100%; object-fit: cover;">
                         <span class="date">{{ date('M d, Y', strtotime($blog->created_at)) }}</span>
                     </a>
